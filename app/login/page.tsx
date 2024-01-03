@@ -4,7 +4,6 @@ import { useEffect } from "react"
 
 export default function Login() {
 
-
   useEffect(() => {
     console.log('LOGIN RENDER')
   }, [])
@@ -35,10 +34,6 @@ export default function Login() {
 
       </div>
     </main>
-
   )
-
-
-
 
 }
