@@ -1,5 +1,4 @@
 
-import Button from "./button";
 import Heading from "./heading";
 import Breadcrumbs from "./breadcrumbs";
 
@@ -12,11 +11,11 @@ const Header = () => {
 
       <div className="title">
         <Breadcrumbs />
-        <Heading />
+        <Heading label={"Dashboard"} className="text-xl" />
       </div>
 
       <div className="actions">
-        <Button />
+        
       </div>
 
     </header>
