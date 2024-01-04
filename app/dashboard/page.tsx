@@ -1,14 +1,11 @@
 'use client'
 
-const Dashboard = () => {
+const Dashboard: React.FC<{}> = () => {
 
   return (
-    <div className="">
-     
-    </div>
+    <div>Dashboard</div>
   )
 
 }
-
 
 export default Dashboard;

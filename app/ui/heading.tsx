@@ -1,7 +1,7 @@
 
 interface Props {
   label: string;
-  className: string;
+  className?: string;
 }
 
 const Heading: React.FC<Props> = ({ label, className }) => {
