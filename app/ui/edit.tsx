@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Edit: React.FC<Props> = ({ className }) => {
-  return <Image className={` inline-block font-medium bg-zinc-100 p-1 rounded-full ${className} `} src={EditIcon} alt="edit icon" width={24} height={20} />
+  return <Image className={` inline-block font-medium bg-zinc-100 p-1 cursor-pointer rounded-full ${className} `} src={EditIcon} alt="edit icon" width={24} height={20} />
 }
 
 export default Edit;
