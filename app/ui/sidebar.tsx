@@ -8,6 +8,7 @@ import Heading from './heading';
 import UserImage from '../public/images/person.jpeg';
 import Dashboard from '../public/icons/dashboard.svg';
 import Campaigns from '../public/icons/campaigns.svg';
+import Leads from '../public/icons/leads.svg';
 import Logout from '../public/icons/logout.svg';
 import Tag from './tag';
 
@@ -37,8 +38,13 @@ const Sidebar: React.FC<{}> = () => {
           <span> Campaigns</span>
         </Link>
 
+        <Link href="/leads" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/leads' ? 'bg-lime-400' : ''} `}>
+          <Image src={Leads} alt="lead icon" width={0} height={20} />
+          <span> Leads</span>
+        </Link>
 
-        <Link href="/campaigns" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/login' ? 'bg-lime-400' : ''} `}>
+
+        <Link href="/login" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/login' ? 'bg-lime-400' : ''} `}>
           <Image src={Logout} alt="campaign icon" width={0} height={20} />
           <span> Logout</span>
         </Link>
