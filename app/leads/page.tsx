@@ -49,7 +49,6 @@ const Leads: React.FC<{}> = () => {
         </div>
 
 
-
         <div className="flex flex-col gap-1 col-span-2  overflow-clip">
           <Heading label={"Intertico"} className={"text-sm font-normal"} />
           <Link href={"/"} className="text-xs text-zinc-400">{('https://www.linkedin.com/company/inzonedubai/').substr(0, 40)}..</Link>
