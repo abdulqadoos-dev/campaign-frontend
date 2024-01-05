@@ -1,8 +1,8 @@
 'use client'
 
-import Edit from "./edit";
-import Heading from "./heading";
-import Tag from "./tag";
+import Tag from "@ui/tag";
+import Edit from "@ui/edit";
+import Heading from "@ui/heading";
 
 interface Props {
   campaign: { name: string, status: string, startDate?: Date, endDate?: Date },

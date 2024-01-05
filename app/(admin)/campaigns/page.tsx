@@ -1,6 +1,6 @@
 'use client'
 
-import Campaign from "../ui/campaign";
+import Campaign from "@ui/campaign";
 
 const Campaigns: React.FC<{}> = () => {
 

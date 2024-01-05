@@ -3,15 +3,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Heading from "../ui/heading";
-import Button from "../ui/button";
-import Tag from '../ui/tag';
+import Tag from '@ui/tag';
+import Edit from "@ui/edit";
+import Button from "@ui/button";
+import Heading from "@ui/heading";
 
-import RightIcon from "../public/icons/right.svg";
-import EditIcon from "../public/icons/edit.svg"
-import Edit from "../ui/edit";
-
-import UserImage from '../public/images/person.jpeg';
+import EditIcon from "@icons/edit.svg"
+import RightIcon from "@icons/right.svg";
+import UserImage from '@images/person.jpeg';
 
 
 const Leads: React.FC<{}> = () => {

@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import EditIcon from '../public/icons/edit.svg';
+import EditIcon from '@icons/edit.svg';
 
 interface Props {
   className?: string,
