@@ -13,30 +13,25 @@ import RightIcon from "@icons/right.svg";
 import UserImage from '@images/person.jpeg';
 
 import Form from './form';
+
+import Header from "@ui/header";
+
+
 import { useState } from 'react';
 
-
-
 interface Props {
-  lead: {name: string, status: string}
+  lead: { name: string, status: string }
 }
 
-const Leads: React.FC<Props> = ({lead}) => {
+const Leads: React.FC<Props> = ({ lead }) => {
 
   const [createLead, setCreateLead] = useState(false);
 
   return (
     <>
-
-      <section className="header mb-5">
-        <div className="flex justify-between items-center">
-          <div className="heading">
-            {/* <Heading label="leads Statistics" className="text-lg" /> */}
-            {/* <span className="text-xs text-zinc-400">Over 500 leads</span> */}
-          </div>
-          <Button lable="New Lead" icon={AddIcon} onClick={() => setCreateLead(!createLead)} />
-        </div>
-      </section>
+      <Header>
+        <Button lable="New Lead" icon={AddIcon} onClick={() => setCreateLead(!createLead)} />
+      </Header>
 
       <section className="filters">
 
@@ -69,7 +64,7 @@ const Leads: React.FC<Props> = ({lead}) => {
 
 
         <div className="flex justify-end items-center gap-3 col-span-2 ">
-          <Button lable="visit"  icon={RightIcon} />
+          <Button lable="visit" icon={RightIcon} />
           <Button lable="Edit" icon={EditIcon} />
         </div>
 

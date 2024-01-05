@@ -1,6 +1,10 @@
 'use client'
 
 import Campaign from "@ui/campaign";
+import Header from "@ui/header";
+import Button from "@ui/button";
+import AddIcon from "@icons/add.svg";
+
 
 const Campaigns: React.FC<{}> = () => {
 
@@ -18,6 +22,11 @@ const Campaigns: React.FC<{}> = () => {
 
   return (
     <>
+
+      <Header>
+        <Button lable="New Campaign" icon={AddIcon} onClick={() => console.log('set campaign')} />
+      </Header>
+
       <div className="filters">
 
       </div>

@@ -8,14 +8,12 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <main className="bg-zinc-50">
-      <div className="grid grid-cols-5 gap-10 place-items-center min-h-screen container mx-auto">
+    <main className="bg-zinc-50 pt-5">
+      <div className="grid grid-cols-5 gap-5 min-h-screen h-fit container mx-auto">
         <Sidebar />
-        <section className="col-span-4 w-full overflow-clip h-[95%]">
-          <Header />
-          <div className="bg-white rounded-large p-5 min-h-[89%]">
+        <section className="col-span-4 w-full bg-white  rounded-large p-5 min-h-[95%] h-fit">
+          {/* <Header /> */}
             {children}
-          </div>
         </section>
       </div>
     </main>

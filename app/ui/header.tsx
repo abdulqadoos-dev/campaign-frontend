@@ -30,26 +30,26 @@ const breadcrumbs = () => {
   }
 }
 
-const Header = () => {
+
+interface Props {
+  children?: React.ReactNode;
+}
+
+const Header: React.FC<Props> = ({ children }) => {
 
   const { heading, icon } = breadcrumbs();
 
   return (
     <header className="mb-4 flex justify-between items-center">
-
       <div className="title">
-        <Breadcrumbs label={heading} icon={icon} />
         <Heading label={heading} className="text-xl" />
+        <Breadcrumbs label={heading} icon={icon} />
       </div>
-
       <div className="actions">
-
+        {children}
       </div>
-
     </header>
-
   )
-
 }
 
 export default Header;
