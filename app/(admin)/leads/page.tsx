@@ -4,36 +4,45 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Tag from '@ui/tag';
-import Edit from "@ui/edit";
 import Button from "@ui/button";
 import Heading from "@ui/heading";
 
-import EditIcon from "@icons/edit.svg"
+import AddIcon from "@icons/add.svg";
+import EditIcon from "@icons/edit.svg";
 import RightIcon from "@icons/right.svg";
 import UserImage from '@images/person.jpeg';
 
+import Form from './form';
+import { useState } from 'react';
 
-const Leads: React.FC<{}> = () => {
+
+
+interface Props {
+  lead: {name: string, status: string}
+}
+
+const Leads: React.FC<Props> = ({lead}) => {
+
+  const [createLead, setCreateLead] = useState(false);
 
   return (
     <>
 
-
-      {/* <section className="header">
+      <section className="header mb-5">
         <div className="flex justify-between items-center">
           <div className="heading">
-            <Heading label="leads Statistics" className="text-lg" />
-            <span className="text-xs text-zinc-400">Over 500 leads</span>
+            {/* <Heading label="leads Statistics" className="text-lg" /> */}
+            {/* <span className="text-xs text-zinc-400">Over 500 leads</span> */}
           </div>
-          <Button lable="New Lead" icon={AddIcon} />
+          <Button lable="New Lead" icon={AddIcon} onClick={() => setCreateLead(!createLead)} />
         </div>
-      </section> */}
+      </section>
 
       <section className="filters">
 
       </section>
 
-
+      {createLead && <Form heading='Create Lead' closeModal={() => setCreateLead(false)} />}
 
       <div className="grid grid-cols-7 gap-4 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
 
@@ -60,15 +69,12 @@ const Leads: React.FC<{}> = () => {
 
 
         <div className="flex justify-end items-center gap-3 col-span-2 ">
-          <Button lable="visit" icon={RightIcon} />
+          <Button lable="visit"  icon={RightIcon} />
           <Button lable="Edit" icon={EditIcon} />
         </div>
 
 
       </div>
-
-
-
 
     </>
   )

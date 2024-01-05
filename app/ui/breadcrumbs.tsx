@@ -16,8 +16,8 @@ const Breadcrumbs: React.FC<Props> = ({ label, icon }) => {
       <ol className="flex items-center space-x-2">
         <li>
           <div>
-            <Link href="/dashboard" className="text-zinc-400 hover:text-zinc-500">
-              <Image src={icon} alt="Dashboard Icon" width={20} height={20} />
+            <Link href={`/${label}`}  className="text-zinc-400 hover:text-zinc-500">
+              <Image src={icon} alt="Dashboard Icon" width={18} height={18} />
               <span className="sr-only">{label}</span>
             </Link>
           </div>
@@ -25,8 +25,8 @@ const Breadcrumbs: React.FC<Props> = ({ label, icon }) => {
 
         <li>
           <div className="flex items-center">
-            <Image src={ChevronRight} alt="Dashboard Icon" width={20} height={20} />
-            <Link href={`/${label}`} className="text-zinc-400 hover:text-zinc-500 ml-2 text-sm"> {label}</Link>
+            <Image src={ChevronRight} alt="Dashboard Icon" width={15} height={15} />
+            <Link href={`/${label}`} className="text-zinc-400 hover:text-zinc-500 ml-2 text-xs capitalize"> {label}</Link>
           </div>
         </li>
 

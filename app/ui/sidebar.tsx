@@ -31,7 +31,7 @@ const Sidebar: React.FC<{}> = () => {
       </div>
 
       <nav className="flex flex-col  gap-2  border-t border-dashed  border-zinc-200 p-3">
-        <Link href="/dashboard" className={`flex gap-2 text-sm items-center py-2  px-3 rounded-full hover:bg-lime-400 ${pathname === '/dashboard' ? 'bg-lime-400' : ''}`}>
+        <Link href="/dashboard" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full hover:bg-lime-400 ${pathname === '/dashboard' ? 'bg-lime-400' : ''}`}>
           <Image src={Dashboard} alt="Dashboard icon" width={0} height={20} />
           <span> Dashboard </span>
         </Link>
