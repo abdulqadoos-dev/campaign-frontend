@@ -1,3 +1,4 @@
+'use client'
 import Header from "@ui/header";
 import Sidebar from "@ui/sidebar";
 

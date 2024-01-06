@@ -9,8 +9,36 @@ import dashbaordIcon from '@icons/dashboard.svg';
 import campaignsIcon from '@icons/campaigns.svg';
 
 
-const breadcrumbs = () => {
-  const heading = usePathname().replace("/", "");
+
+interface Props {
+  children?: React.ReactNode;
+}
+
+const Header: React.FC<Props> = ({ children }) => {
+
+
+  const { heading, icon } = breadcrumbs( usePathname().replace("/", ""));
+
+  return (
+    <header className="mb-4 flex justify-between items-center">
+      <div className="title">
+        <Heading label={heading} className="text-xl" />
+        <Breadcrumbs label={heading} icon={icon} />
+      </div>
+      <div className="actions">
+        {children}
+      </div>
+    </header>
+  )
+}
+
+export default Header;
+
+
+
+
+const breadcrumbs = (heading : string) => {
+ 
   switch (heading) {
 
     case "dashboard":
@@ -29,27 +57,3 @@ const breadcrumbs = () => {
       return { heading, icon: dashbaordIcon }
   }
 }
-
-
-interface Props {
-  children?: React.ReactNode;
-}
-
-const Header: React.FC<Props> = ({ children }) => {
-
-  const { heading, icon } = breadcrumbs();
-
-  return (
-    <header className="mb-4 flex justify-between items-center">
-      <div className="title">
-        <Heading label={heading} className="text-xl" />
-        <Breadcrumbs label={heading} icon={icon} />
-      </div>
-      <div className="actions">
-        {children}
-      </div>
-    </header>
-  )
-}
-
-export default Header;

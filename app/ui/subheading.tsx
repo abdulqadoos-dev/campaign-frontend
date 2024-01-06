@@ -1,3 +1,4 @@
+'use client'
 interface Props {
   label: string;
   className?: string;

@@ -31,7 +31,7 @@ const Campaigns: React.FC<{}> = () => {
 
       </div>
       <section className="grid grid-cols-3 gap-5">
-        {campaigns.map(campaign => <Campaign campaign={campaign} />)}
+        {campaigns.map((campaign, index) => <Campaign key={index} campaign={campaign} />)}
       </section>
     </>
   )

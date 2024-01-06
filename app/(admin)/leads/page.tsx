@@ -19,11 +19,11 @@ import Header from "@ui/header";
 
 import { useState } from 'react';
 
-interface Props {
-  lead: { name: string, status: string }
+interface PropsObject {
+  
 }
 
-const Leads: React.FC<Props> = ({ lead }) => {
+const Leads: React.FC<PropsObject> = () => {
 
   const [createLead, setCreateLead] = useState(false);
 
