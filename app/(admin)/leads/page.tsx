@@ -18,20 +18,24 @@ import Header from "@ui/header";
 
 
 import { useEffect, useState } from 'react';
+import { getLeads } from './actions';
 
 interface PropsObject {
-  
+
 }
 
 const Leads: React.FC<PropsObject> = () => {
 
   const [createLead, setCreateLead] = useState(false);
+  const [leads, setLeads] = useState([]);
 
   useEffect(() => {
-    console.log("RENDER");
-  },[])
+    getLeads().then(result => {
+      result.length && setLeads(result)
+    });
+  }, [])
 
-  
+
   return (
     <>
       <Header>
@@ -44,37 +48,41 @@ const Leads: React.FC<PropsObject> = () => {
 
       {createLead && <Form heading='Create Lead' closeModal={() => setCreateLead(false)} />}
 
-      <div className="grid grid-cols-7 gap-4 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
+      {leads.length ? leads.map((lead: any, index) => (
+        <div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
 
-        <div className="cursor-pointer col-span-2">
-          <div className="flex gap-3 p-3 items-center">
-            <Image src={UserImage} alt='user image' className="rounded-full" width={50} height={50} />
-            <div>
-              <Heading label={"louis candly"} className={"text-sm"} />
-              <span className="text-xs text-zinc-400">Marketing manager</span>
+          <div className="cursor-pointer col-span-2">
+            <div className="flex gap-3 p-3 items-center">
+              <Image src={UserImage} alt='user image' className="rounded-full" width={50} height={50} />
+              <div>
+                <Heading label={`${lead.firstName} ${lead.lastName}`} className={"text-sm"} />
+                <span className="text-xs text-zinc-400">{lead?.designation}</span>
+              </div>
             </div>
           </div>
+
+
+          <div className="flex flex-col gap-1 col-span-2 overflow-clip">
+            <p className="text-sm " >{lead.email}</p>
+            <p className="text-xs text-zinc-400">{lead.notes.substr(0,40)}</p>
+            {/* <Link href={"/"} className="text-xs text-zinc-400">{('https://www.linkedin.com/company/inzonedubai/').substr(0, 40)}..</Link> */}
+          </div>
+
+
+          <div className="flex justify-center ">
+            <Tag label={lead.status} className="w-fit" />
+          </div>
+
+
+          <div className="flex justify-end items-center gap-3 col-span-2 ">
+            <Button lable="visit" icon={RightIcon} />
+            <Button lable="Edit" icon={EditIcon} />
+          </div>
+
+
         </div>
+      )) : "no leads"}
 
-
-        <div className="flex flex-col gap-1 col-span-2  overflow-clip">
-          <Heading label={"Intertico"} className={"text-sm font-normal"} />
-          <Link href={"/"} className="text-xs text-zinc-400">{('https://www.linkedin.com/company/inzonedubai/').substr(0, 40)}..</Link>
-        </div>
-
-
-        <div className="flex justify-center ">
-          <Tag label={'in chat'} className="w-fit" />
-        </div>
-
-
-        <div className="flex justify-end items-center gap-3 col-span-2 ">
-          <Button lable="visit" icon={RightIcon} />
-          <Button lable="Edit" icon={EditIcon} />
-        </div>
-
-
-      </div>
 
     </>
   )

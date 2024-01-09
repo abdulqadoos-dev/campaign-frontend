@@ -1,6 +1,6 @@
 'use server'
 
-import { post } from '@/app/apis'
+import { post, get } from '@/app/apis'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
@@ -24,3 +24,7 @@ export const save = async (prevState: any, formData: FormData) => {
 }
 
 
+export const getLeads = async () =>  {
+  const response = await get('/leads');
+  return await response.json();
+}
