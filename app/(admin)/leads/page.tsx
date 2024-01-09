@@ -17,7 +17,7 @@ import Form from './form';
 import Header from "@ui/header";
 
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface PropsObject {
   
@@ -27,6 +27,11 @@ const Leads: React.FC<PropsObject> = () => {
 
   const [createLead, setCreateLead] = useState(false);
 
+  useEffect(() => {
+    console.log("RENDER");
+  },[])
+
+  
   return (
     <>
       <Header>

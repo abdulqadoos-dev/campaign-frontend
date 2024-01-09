@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
 
-export const save = async (formData: FormData) => {
+export const save = async (prevState: any, formData: FormData) => {
 
   const lead = {
     firstName: formData.get('firstName'),
@@ -18,7 +18,9 @@ export const save = async (formData: FormData) => {
   }
 
   const response = await post('/leads', lead);
-  const data  = response.ok && response.status === 201 && await response.json();
-
+  const data = response.ok && response.status === 201 && await response.json();
+  return data && { message: response.statusText , status: response.status }
 
 }
+
+

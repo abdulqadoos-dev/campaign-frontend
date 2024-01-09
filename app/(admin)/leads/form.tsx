@@ -6,6 +6,10 @@ import Button from "@ui/button";
 
 import { save } from "./actions";
 
+import { useFormState } from 'react-dom'
+import { useEffect } from "react";
+
+
 interface Props {
 
   heading: string;
@@ -22,13 +26,26 @@ interface Props {
 
 }
 
-
+const initialState = {
+  message: '',
+  status: null
+}
 
 const Form: React.FC<Props> = ({ heading, lead, closeModal }) => {
 
+  const [state, formAction] = useFormState(save, initialState);
+
+  useEffect(() => {
+    state.status === 201 && closeModal();
+  }, [state])
+
   return (
     <Modal heading={heading} closeModal={closeModal} >
-      <form action={save}>
+
+
+      <p>{state?.message}</p>
+
+      <form action={formAction}>
 
         <Input type="text" label="first Name" name="lastName" value={lead?.firstName} />
         <Input type="text" label="last Name" name="firstName" value={lead?.lastName} />
@@ -39,7 +56,7 @@ const Form: React.FC<Props> = ({ heading, lead, closeModal }) => {
         <Input type="text" label="notes" name="notes" value={lead?.notes} />
 
         <div className="grid justify-items-stretch">
-          <Button lable="save" className="w-32 my-2 justify-self-end" active="true" onClick={() => console.log('save')} />
+          <Button lable="save" className="w-32 my-2 justify-self-end" active="true" />
         </div>
       </form>
     </Modal>
