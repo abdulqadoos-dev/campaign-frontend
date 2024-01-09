@@ -11,7 +11,7 @@ export async function login(formData: FormData) {
     password: formData.get('password'),
   }
 
-  const response = await fetch('http://localhost:8000/login', {
+  const response = await fetch(`${process.env.SERVER_PATH}/login`, {
     cache: 'no-store',
     method: 'POST',
     headers: {

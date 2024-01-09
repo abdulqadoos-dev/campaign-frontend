@@ -3,34 +3,40 @@
 import Modal from "@ui/modal";
 import Input from "@ui/input";
 import Button from "@ui/button";
-import { useState } from "react";
 
+import { save } from "./actions";
 
 interface Props {
 
   heading: string;
   closeModal: any;
-  lead?: { name?: string, title?: string }
+  lead?: {
+    firstName: string,
+    lastName: string,
+    email: string,
+    url: string,
+    status: string,
+    notes: string,
+    designation: string
+  }
 
 }
 
-const heandelSubmit = (event: any) => {
-  event.preventDefault();
-}
+
 
 const Form: React.FC<Props> = ({ heading, lead, closeModal }) => {
 
-
-  const [form, setForm] = useState(lead);
-
-  console.log(form, 'check');
-
   return (
     <Modal heading={heading} closeModal={closeModal} >
-      <form onSubmit={heandelSubmit}>
+      <form action={save}>
 
-        <Input type="text" label="name" value={form?.name} onChange={(event: any) => setForm({ ...form, name: event?.target.value })} />
-        <Input type="text" label="title" value={form?.title} onChange={(event: any) => setForm({ ...form, title: event?.target.value })} />
+        <Input type="text" label="first Name" name="lastName" value={lead?.firstName} />
+        <Input type="text" label="last Name" name="firstName" value={lead?.lastName} />
+        <Input type="text" label="designation" name="designation" value={lead?.designation} />
+        <Input type="text" label="email" name="email" value={lead?.email} />
+        <Input type="text" label="url" name="url" value={lead?.url} />
+        <Input type="text" label="status" name="status" value={lead?.status} />
+        <Input type="text" label="notes" name="notes" value={lead?.notes} />
 
         <div className="grid justify-items-stretch">
           <Button lable="save" className="w-32 my-2 justify-self-end" active="true" onClick={() => console.log('save')} />

@@ -13,8 +13,8 @@ interface Props {
 
 const Modal: React.FC<Props> = ({ children, heading, closeModal }) => {
   return (
-    <section className="h-screen flex items-center justify-end w-screen bg-lime-950 bg-opacity-10 absolute top-0 left-0 ">
-      <div className=" bg-white  p-10 w-1/3 round h-screen shadow-lg relative">
+    <section className="m-h-screen h-fit flex items-center justify-end w-screen bg-lime-950 bg-opacity-10 absolute top-0 left-0 ">
+      <div className=" bg-white p-10 w-1/3 round h-screen overflow-scroll shadow-lg relative">
         <div className="absolute top-3 right-3 ">
           <Action icon={CloseIcon} onClick={closeModal} />
         </div>
