@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 
 
 import Leads from '@icons/leads.svg';
@@ -15,10 +15,16 @@ import Campaigns from '@icons/campaigns.svg';
 import Tag from '@ui/tag';
 import Heading from '@ui/heading';
 
+import { logout } from '@/app/login/actions';
+
+import { useRouter } from 'next/navigation'
+
 
 const Sidebar: React.FC<{}> = () => {
 
-  const pathname = usePathname()
+  const pathname = usePathname();
+  const router = useRouter()
+
   return (
     <aside className="bg-white rounded-large min-h-[95%] h-fit">
 
@@ -52,10 +58,17 @@ const Sidebar: React.FC<{}> = () => {
         </Link>
 
 
-        <Link href="/login" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/login' ? 'bg-lime-400' : ''} `}>
+        <button
+          onClick={async () => {
+            const exit = await logout();
+            !exit && router.push('/login', { scroll: false })
+          }}
+          type="submit" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/login' ? 'bg-lime-400' : ''} `}>
           <Image src={Logout} alt="campaign icon" width={0} height={20} />
           <span> Logout</span>
-        </Link>
+        </button>
+
+
       </nav>
 
     </aside>
