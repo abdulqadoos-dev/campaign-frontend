@@ -11,11 +11,11 @@ interface Props {
 const Input: React.FC<Props> = ({ type, placeholder, label, value, onChange }) => {
   return (
     <div className="my-3">
-      {label && <label className="text-sm ml-4 mb-4 capitalize text-zinc-800">{label}</label>}
+      {label && <label className="text-xs ml-4 mb-4 capitalize text-zinc-800">{label}</label>}
       <input
         type={type}
         onChange={onChange}
-        className="w-full bg-zinc-100 rounded-full py-3 px-4 text-sm placeholder:text-zinc-400 placeholder:text-xs focus:outline-none"
+        className="w-full bg-zinc-100 rounded-full py-2 px-4 text-sm placeholder:text-zinc-400 placeholder:text-xs focus:outline-none"
         placeholder={placeholder}
         value={value}
       />
