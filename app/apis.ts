@@ -28,7 +28,7 @@ export const get = async (pathname: string) => {
   // TODO: Impliment login for refresh token
   const { accessToken = null } = loggedInUser();
 
-  const response = await fetch(`${process.env.SERVER_PATH}${pathname}`, {
+  return await fetch(`${process.env.SERVER_PATH}${pathname}`, {
     cache: 'no-store',
     method: 'GET',
     headers: {
@@ -37,6 +37,5 @@ export const get = async (pathname: string) => {
     },
   });
 
-  return response;
 
 }
