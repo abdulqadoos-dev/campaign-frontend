@@ -1,22 +1,29 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { loggedInUser } from '@/app/apis';
 
-import { AUTH_ROUTES } from '@/app/constants'
 
 export function middleware(request: NextRequest) {
 
-  let user = request.cookies.get('user');
+  const { accessToken = null, expiredAt = null } = loggedInUser() || {};
 
-  if (!AUTH_ROUTES.includes(request.nextUrl.pathname) && !user) {
+
+  //protect all routes
+  if (!accessToken) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  // expired token
+  if (accessToken && new Date(expiredAt) < new Date()) {
+    //TODO: impliment logic for refresh token
+    request.cookies.delete('user');
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  if (AUTH_ROUTES.includes(request.nextUrl.pathname) && user) {
-    return NextResponse.redirect(new URL('/dashboard', request.url))
-  }
+  return NextResponse.next();
 
 }
 
 export const config = {
-  matcher: ['/login/:path*', '/dashboard/:path*', '/campaigns/:path*', '/leads/:path*', '/users/:path*'],
+  matcher: ['/dashboard/:path*', '/campaigns/:path*', '/leads/:path*', '/users/:path*'],
 }
