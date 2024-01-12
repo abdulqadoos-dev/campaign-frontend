@@ -16,9 +16,9 @@ import Form from './form';
 
 import Header from "@ui/header";
 
-
 import { useEffect, useState } from 'react';
 import { getLeads } from './actions';
+import { tree } from 'next/dist/build/templates/app-page';
 
 interface PropsObject {
 
@@ -26,27 +26,42 @@ interface PropsObject {
 
 const Leads: React.FC<PropsObject> = () => {
 
-  const [createLead, setCreateLead] = useState(false);
+  const [leadModal, setLeadModal] = useState(false);
   const [leads, setLeads] = useState([]);
+  const [leadForm, setLeadForm] = useState({})
+  const [modalHeading, setModalHeading] = useState('')
 
   useEffect(() => {
+    fetchLeads()
+  }, [])
+
+  const fetchLeads = () => {
     getLeads().then(result => {
       result.length && setLeads(result)
     });
-  }, [])
-
+  }
 
   return (
     <>
       <Header>
-        <Button lable="New Lead" icon={AddIcon} onClick={() => setCreateLead(!createLead)} />
+        <Button lable="New Lead" icon={AddIcon} onClick={() => {
+          setModalHeading('create lead')
+          setLeadModal(!leadModal)
+          setLeadForm({});
+        }} />
       </Header>
 
       <section className="filters">
 
       </section>
 
-      {createLead && <Form heading='Create Lead' closeModal={() => setCreateLead(false)} />}
+      {leadModal && <Form
+        leadForm={leadForm}
+        setLeadForm={(newLead: any) => setLeadForm(newLead)}
+        heading={modalHeading}
+        closeModal={() => setLeadModal(false)}
+        refreshLeads={() => fetchLeads()}
+      />}
 
       {leads.length ? leads.map((lead: any, index) => (
         <div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
@@ -61,10 +76,9 @@ const Leads: React.FC<PropsObject> = () => {
             </div>
           </div>
 
-
           <div className="flex flex-col gap-1 col-span-2 overflow-clip">
             <p className="text-sm " >{lead.email}</p>
-            <p className="text-xs text-zinc-400">{lead.notes.substr(0,40)}</p>
+            <p className="text-xs text-zinc-400">{lead.notes.substr(0, 40)}</p>
             {/* <Link href={"/"} className="text-xs text-zinc-400">{('https://www.linkedin.com/company/inzonedubai/').substr(0, 40)}..</Link> */}
           </div>
 
@@ -76,7 +90,11 @@ const Leads: React.FC<PropsObject> = () => {
 
           <div className="flex justify-end items-center gap-3 col-span-2 ">
             <Button lable="visit" icon={RightIcon} />
-            <Button lable="Edit" icon={EditIcon} />
+            <Button lable="Edit" icon={EditIcon} onClick={() => {
+              setModalHeading('update lead')
+              setLeadForm(lead);
+              setLeadModal(true);
+            }} />
           </div>
 
 

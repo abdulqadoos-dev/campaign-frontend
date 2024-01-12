@@ -1,3 +1,4 @@
+import { Puritan } from 'next/font/google';
 import { cookies } from 'next/headers'
 
 export const loggedInUser = () => {
@@ -5,22 +6,19 @@ export const loggedInUser = () => {
   return user ? JSON.parse(user) : {};
 }
 
-export const post = async (pathname: string, body: object) => {
+export const save = async (pathname: string, method: string, body: object) => {
  // TODO: Impliment login for refresh token
   const { accessToken = null } = loggedInUser();
 
-  const response = await fetch(`${process.env.SERVER_PATH}${pathname}`, {
+  return await fetch(`${process.env.SERVER_PATH}${pathname}`, {
     cache: 'no-store',
-    method: 'POST',
+    method: method,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + accessToken
     },
     body: JSON.stringify(body),
   });
-
-  return response;
-
 }
 
 export const get = async (pathname: string) => {
