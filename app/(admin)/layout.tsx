@@ -10,11 +10,17 @@ export default function DashboardLayout({
 }) {
   return (
     <main className="bg-zinc-50">
-      <div className="grid grid-cols-5 gap-5 min-h-screen h-fit container mx-auto pt-10">
-        <Sidebar />
-        <section className="col-span-4 w-full bg-white rounded-large p-5 min-h-[95%] h-fit ">
-            {children}
-        </section>
+
+      <div className="grid grid-cols-5 gap-5 h-screen items-center container mx-auto">
+
+        <aside className="bg-white rounded-large  h-[95%] overflow-y-auto">
+          <Sidebar />
+        </aside>
+
+        <main className="bg-white rounded-large p-5 col-span-4 h-[95%] overflow-y-auto relative">
+          {children}
+        </main>
+
       </div>
     </main>
   )

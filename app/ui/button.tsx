@@ -7,11 +7,9 @@ interface Props {
   icon?: string;
   onClick?: any;
   active?: string;
-  type?: string;
-
 }
 
-const Button: React.FC<Props> = ({ lable, className, icon, onClick, active, type }) => {
+const Button: React.FC<Props> = ({ lable, className, icon, onClick, active }) => {
   return (
     <button
       className={`rounded-full  text-zinc-800 hover:bg-lime-400 capitalize text-sm py-2 px-4  ${active ? "bg-lime-400" : "bg-zinc-100"} ${className}  ${icon ? 'flex gap-1' : ''}`}

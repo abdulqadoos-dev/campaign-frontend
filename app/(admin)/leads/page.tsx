@@ -63,6 +63,7 @@ const Leads: React.FC<PropsObject> = () => {
         refreshLeads={() => fetchLeads()}
       />}
 
+      {/* TODO: Impliment pagination */}
       {leads.length ? leads.map((lead: any, index) => (
         <div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
 
@@ -84,7 +85,7 @@ const Leads: React.FC<PropsObject> = () => {
 
 
           <div className="flex justify-center ">
-            <Tag label={lead.status} className="w-fit" />
+            {lead.status && <Tag label={lead.status} className="w-fit" />}
           </div>
 
 

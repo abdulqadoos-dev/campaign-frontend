@@ -26,8 +26,7 @@ const Sidebar: React.FC<{}> = () => {
   const router = useRouter()
 
   return (
-    <aside className="bg-white rounded-large min-h-[95%] h-fit">
-
+    <>
       <div className="flex gap-3 p-3 items-center mt-2">
         <Image src={UserImage} alt='user image' className="rounded-full" width={50} height={50} />
         <div>
@@ -68,10 +67,9 @@ const Sidebar: React.FC<{}> = () => {
           <span> Logout</span>
         </button>
 
-
       </nav>
 
-    </aside>
+    </>
   )
 }
 

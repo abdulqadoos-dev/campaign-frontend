@@ -7,7 +7,9 @@ import { revalidatePath } from 'next/cache'
 
 export const saveLead = async (prevState: any, formData: FormData) => {
 
-  const leadId =  formData.get('id')
+  const leadId =  formData.get('id');
+  console.log(formData.get('status'));
+  
   const lead = {
     firstName: formData.get('firstName'),
     lastName: formData.get('lastName'),
