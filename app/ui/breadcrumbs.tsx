@@ -26,7 +26,7 @@ const Breadcrumbs: React.FC<Props> = ({ label, icon }) => {
         <li>
           <div className="flex items-center">
             <Image src={ChevronRight} alt="Dashboard Icon" width={15} height={15} />
-            <Link href={`/${label}`} className="text-zinc-400 hover:text-zinc-500 ml-2 text-xs capitalize"> {label}</Link>
+            <Link href={`/${label}`} className="text-zinc-400 hover:text-zinc-500 ml-2 text-sm capitalize"> {label}</Link>
           </div>
         </li>
 

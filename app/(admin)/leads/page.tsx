@@ -11,13 +11,13 @@ import AddIcon from "@icons/add.svg";
 import EditIcon from "@icons/edit.svg";
 import RightIcon from "@icons/right.svg";
 import UserImage from '@images/person.jpeg';
+import defaultUser from '@icons/leads.svg';
 
 import Form from './form';
-
 import Header from "@ui/header";
 
 import { useEffect, useState } from 'react';
-import { getLeads, searchLeads } from './actions';
+import { searchLeads } from './actions';
 import Input from '@/app/ui/input';
 import Select from '@/app/ui/select';
 import { statusOptions } from '@/app/constants';
@@ -25,6 +25,7 @@ import Action from '@/app/ui/action';
 
 import leftIcon from '@icons/chevron-left.svg';
 import rightIcon from '@icons/chevron-right.svg';
+import NoRecord from '@/app/ui/noRecord';
 
 interface PropsObject {
 
@@ -32,11 +33,13 @@ interface PropsObject {
 
 const Leads: React.FC<PropsObject> = () => {
 
+  const [leadForm, setLeadForm] = useState({})
   const [leadModal, setLeadModal] = useState(false);
+  const [modalHeading, setModalHeading] = useState('');
+
   const [leads, setLeads] = useState([]);
   const [leadsCount, setLeadsCount] = useState(0);
-  const [leadForm, setLeadForm] = useState({})
-  const [modalHeading, setModalHeading] = useState('');
+ 
   const [filters, setFilters] = useState({ query: "", status: "", skip: 0, take: 20 })
 
 
@@ -166,7 +169,7 @@ const Leads: React.FC<PropsObject> = () => {
 
           <div className="cursor-pointer col-span-2">
             <div className="flex gap-3 p-3 items-center">
-              <Image src={UserImage} alt='user image' className="rounded-full" width={50} height={50} />
+              <Image src={defaultUser} alt='user image' className="rounded-full bg-zinc-100 p-3" width={50} height={50} />
               <div>
                 <Heading label={`${lead.firstName} ${lead.lastName}`} className={"text-sm"} />
                 <span className="text-xs text-zinc-400">{lead?.designation}</span>
@@ -183,8 +186,8 @@ const Leads: React.FC<PropsObject> = () => {
           </div>
 
           <div className="flex justify-end items-center gap-3 col-span-2 ">
-            <Button lable="visit" icon={RightIcon} />
-            <Button lable="Edit" icon={EditIcon} onClick={() => {
+            {lead.url && <a href={lead.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>}
+            <Action className="p-2" height={40} width={36} icon={EditIcon} onClick={() => {
               setModalHeading('update lead')
               setLeadForm(lead);
               setLeadModal(true);
@@ -193,7 +196,9 @@ const Leads: React.FC<PropsObject> = () => {
 
 
         </div>
-      )) : "no leads"}
+      )) :
+        <NoRecord label="leads" />
+      }
 
 
     </>

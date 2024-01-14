@@ -73,7 +73,7 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
         <Input type="text" label="email" name="email" value={leadForm?.email}
           onChange={(e: any) => setLeadForm({ ...leadForm, email: e.target.value })}
         />
-        <Input type="text" label="url" name="url" value={leadForm?.url}
+        <Input type="url" label="url" name="url" value={leadForm?.url}
           onChange={(e: any) => setLeadForm({ ...leadForm, url: e.target.value })}
         />
 
