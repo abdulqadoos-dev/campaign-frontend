@@ -6,10 +6,12 @@ interface Props {
   options?: any;
   onChange?: any;
   selected?: string;
+  palceholder?: string | undefined;
+  className?: string | undefined
 }
 
 
-const Select: React.FC<Props> = ({ name, label, options, selected, onChange }) => {
+const Select: React.FC<Props> = ({ name, label, options, selected, onChange, palceholder, className }) => {
 
   return (
     <div className="my-3">
@@ -17,10 +19,10 @@ const Select: React.FC<Props> = ({ name, label, options, selected, onChange }) =
       <select
         name={name}
         onChange={onChange}
-        className="w-full bg-zinc-100 rounded-full py-2 px-4 text-sm  focus:outline-none"
+        className={`w-full bg-zinc-100 rounded-full py-2 px-4 text-sm focus:outline-none ${className}`}
       >
 
-        <option value={""}> -- select --</option>
+        <option value={""}> {palceholder || "-- select --"}</option>
         {options?.length ? options.map(((option: any) => (<option selected={selected === option.value} value={option.value}>{option.label}</option>))) : null}
 
       </select>

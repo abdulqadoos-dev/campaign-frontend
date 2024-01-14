@@ -20,7 +20,7 @@ const Header: React.FC<Props> = ({ children }) => {
   const { heading, icon } = breadcrumbs( usePathname().replace("/", ""));
 
   return (
-    <header className="mb-4 flex justify-between items-center">
+    <header className="flex justify-between items-center">
       <div className="title">
         <Heading label={heading} className="text-xl" />
         <Breadcrumbs label={heading} icon={icon} />

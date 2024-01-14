@@ -9,9 +9,9 @@ import Select from '@ui/select';
 
 import { saveLead } from "./actions";
 
-
 import { useEffect, useState } from "react";
 import Textarea from '@/app/ui/textarea';
+import { statusOptions } from '@/app/constants';
 
 
 
@@ -51,10 +51,6 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
 
   }, [state])
 
-  const [statuses, setStatuses] = useState([
-    { label: "acitve", value: "active" },
-    { label: "requested", value: "requested" }
-  ])
 
   return (
     <Modal heading={heading} closeModal={closeModal} >
@@ -80,18 +76,10 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
         <Input type="text" label="url" name="url" value={leadForm?.url}
           onChange={(e: any) => setLeadForm({ ...leadForm, url: e.target.value })}
         />
-        {/* <Input type="text" label="status" name="status" value={leadForm?.status}
-          onChange={(e: any) => setLeadForm({ ...leadForm, status: e.target.value })}
-        /> */}
 
-
-        <Select label='status' name='status' options={statuses} selected={leadForm?.status}
+        <Select label='status' name='status' options={statusOptions} selected={leadForm?.status}
           onChange={(e: any) => setLeadForm({ ...leadForm, status: e.target.value })}
         />
-{/* 
-        <Input type="text" label="notes" name="notes" value={leadForm?.notes}
-          onChange={(e: any) => setLeadForm({ ...leadForm, notes: e.target.value })}
-        /> */}
 
         <Textarea name='notes' label='notes' value={leadForm?.notes}
           onChange={(e: any) => setLeadForm({ ...leadForm, notes: e.target.value })}
