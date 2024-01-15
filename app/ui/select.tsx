@@ -22,7 +22,7 @@ const Select: React.FC<Props> = ({ name, label, options, selected, onChange, pal
       >
 
         <option value={""}> {palceholder || "-- select --"}</option>
-        {options?.length ? options.map(((option: any) => (<option selected={selected === option.value} value={option.value}>{option.label}</option>))) : null}
+        {options?.length ? options.map(((option: any, index: number) => (<option key={index} selected={selected === option.value} value={option.value}>{option.label}</option>))) : null}
 
       </select>
     </div>

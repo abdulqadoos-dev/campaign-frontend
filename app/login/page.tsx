@@ -29,7 +29,7 @@ const Login = () => {
          
           <p className="text-lime-500 text-xs capitalize my-2 text-right font-normal">Forget Password?</p>
 
-          <Button lable="login" type="submit" active="true" className="rounded-full bg-lime-400  text-sm py-3 px-5 text-center w-full" />
+          <Button lable="login" active="true" className="rounded-full bg-lime-400  text-sm py-3 px-5 text-center w-full" />
         </form>
 
       </div>
