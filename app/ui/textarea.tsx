@@ -16,7 +16,7 @@ const Textarea: React.FC<Props> = ({ placeholder, name, label, value, onChange }
       rows={5}
         name={name}
         onChange={onChange}
-        className="w-full bg-zinc-100 rounded-large py-2 px-4 text-sm placeholder:text-zinc-400 placeholder:text-xs focus:outline-none"
+        className="w-full bg-zinc-100 border-none rounded-large py-2 px-4 text-sm placeholder:text-zinc-400 placeholder:text-xs focus:outline-none"
         placeholder={placeholder}
       >{value}</textarea>
     </div>

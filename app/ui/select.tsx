@@ -10,7 +10,6 @@ interface Props {
   className?: string | undefined
 }
 
-
 const Select: React.FC<Props> = ({ name, label, options, selected, onChange, palceholder, className }) => {
 
   return (
@@ -19,7 +18,7 @@ const Select: React.FC<Props> = ({ name, label, options, selected, onChange, pal
       <select
         name={name}
         onChange={onChange}
-        className={`w-full bg-zinc-100 rounded-full py-2 px-4 text-sm focus:outline-none ${className}`}
+        className={`w-full border-r-8 border-transparent rounded-full bg-zinc-100 px-4 py-2 text-sm outline-none  ${className}`}
       >
 
         <option value={""}> {palceholder || "-- select --"}</option>

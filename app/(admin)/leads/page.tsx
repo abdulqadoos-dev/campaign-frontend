@@ -19,17 +19,10 @@ import Header from "@ui/header";
 import { useEffect, useState } from 'react';
 import { searchLeads } from './actions';
 
-import Input from '@/app/ui/input';
-import Select from '@/app/ui/select';
-import { statusOptions } from '@/app/constants';
-import UserImage from '@images/person.jpeg';
-import leftIcon from '@icons/chevron-left.svg';
-import rightIcon from '@icons/chevron-right.svg';
-
 import Action from '@/app/ui/action';
 import NoRecord from '@/app/ui/noRecord';
-
 import Filters from '@/app/ui/filters';
+import { convertFiltersToQuery } from '@/app/functions';
 
 interface PropsObject {
 
@@ -46,42 +39,6 @@ const Leads: React.FC<PropsObject> = () => {
  
   const [filters, setFilters] = useState({ query: "", status: "", skip: 0, take: 20 })
 
-
-  const convertFiltersToQuery = (newFilters: any) => {
-
-    const defaultFilters = {
-      order: {
-        id: "DESC"
-      },
-      skip: newFilters.skip,
-      take: newFilters.take
-    }
-
-    if (newFilters.query && newFilters.status) {
-      return {
-        ...defaultFilters,
-        query: newFilters.query,
-        status: newFilters.status,
-      }
-    }
-
-    if (newFilters.query) {
-      return {
-        ...defaultFilters,
-        query: newFilters.query,
-      }
-    }
-
-    if (newFilters.status) {
-      return {
-        ...defaultFilters,
-        where: { status: newFilters.status },
-      }
-    }
-
-    return defaultFilters;
-
-  }
 
   useEffect(() => {
     fetchLeads(filters)
@@ -130,7 +87,6 @@ const Leads: React.FC<PropsObject> = () => {
       </Header>
 
       <Filters filters={filters} setFilters={setFilters} count={leadsCount} />
-
 
       {leads?.length ? leads.map((lead: any, index: number) => (
         <div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">

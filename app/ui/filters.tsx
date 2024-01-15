@@ -13,7 +13,6 @@ interface Props {
 }
 
 
-
 const Filters: React.FC<Props> = ({ filters, setFilters, count }) => {
   return <section className="flex items-center justify-between">
 
@@ -27,7 +26,7 @@ const Filters: React.FC<Props> = ({ filters, setFilters, count }) => {
         }}
       />
 
-      <Select palceholder="All" name='status' className="w-36" selected={filters.status} options={statusOptions}
+      <Select palceholder="All" name='status' className="w-fit" selected={filters.status} options={statusOptions}
         onChange={(e: any) => {
           let newFilters = { ...filters, status: e.target.value, skip: 0 }
           setFilters(newFilters)

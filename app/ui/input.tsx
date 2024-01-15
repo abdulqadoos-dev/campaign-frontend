@@ -17,7 +17,7 @@ const Input: React.FC<Props> = ({ type, placeholder, name, label, value, onChang
         type={type}
         name={name}
         onChange={onChange}
-        className="w-full bg-zinc-100 rounded-full py-2 px-4 text-sm placeholder:text-zinc-400 placeholder:text-sm focus:outline-none"
+        className="w-full bg-zinc-100 rounded-full py-2 px-4 text-sm placeholder:text-zinc-400 placeholder:text-sm border-none focus:outline-none"
         placeholder={placeholder}
         value={value}
       />
