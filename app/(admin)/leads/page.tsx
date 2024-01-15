@@ -23,6 +23,7 @@ import Action from '@/app/ui/action';
 import NoRecord from '@/app/ui/noRecord';
 import Filters from '@/app/ui/filters';
 import { convertFiltersToQuery } from '@/app/functions';
+import Alert from '@/app/ui/alert';
 
 interface PropsObject {
 
@@ -30,13 +31,14 @@ interface PropsObject {
 
 const Leads: React.FC<PropsObject> = () => {
 
+  const [response, setReponse] = useState()
   const [leadForm, setLeadForm] = useState({})
   const [leadModal, setLeadModal] = useState(false);
   const [modalHeading, setModalHeading] = useState('');
 
   const [leads, setLeads] = useState([]);
   const [leadsCount, setLeadsCount] = useState(0);
- 
+
   const [filters, setFilters] = useState({ query: "", status: "", skip: 0, take: 20 })
 
 
@@ -75,8 +77,10 @@ const Leads: React.FC<PropsObject> = () => {
         heading={modalHeading}
         closeModal={() => setLeadModal(false)}
         refreshLeads={() => fetchLeads(filters)}
+        setResponse={(message: any) => setReponse(message)}
       />}
 
+      {response && <Alert response={response} setResponse={(value: any) => setReponse(value)} />}
 
       <Header>
         <Button lable="New Lead" icon={AddIcon} onClick={() => {

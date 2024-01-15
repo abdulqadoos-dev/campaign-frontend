@@ -14,6 +14,8 @@ import Textarea from '@/app/ui/textarea';
 import { statusOptions } from '@/app/constants';
 
 
+import Alert from '@/app/ui/alert';
+
 
 interface Props {
 
@@ -21,6 +23,7 @@ interface Props {
   closeModal: any;
   refreshLeads: any;
   setLeadForm: any;
+  setResponse?: any;
   leadForm?: {
     id?: number,
     firstName?: string,
@@ -38,13 +41,13 @@ const initialState = {
   status: null
 }
 
-const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, refreshLeads }) => {
+const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, refreshLeads, setResponse }) => {
 
   const [state, formAction] = useFormState(saveLead, initialState);
 
   useEffect(() => {
-
     if (state?.status === 201 || state?.status === 200) {
+      setResponse(`Lead ${state?.status === 200 ? 'Updated' :state.message}`)
       closeModal();
       refreshLeads();
     };
@@ -56,7 +59,7 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
     <Modal heading={heading} closeModal={closeModal} >
 
 
-      <p>{state?.message}</p>
+
 
       <form action={formAction}>
 
