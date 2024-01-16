@@ -10,7 +10,7 @@ import AddIcon from "@icons/add.svg";
 import EditIcon from "@icons/edit.svg";
 import RightIcon from "@icons/right.svg";
 
-import defaultUser from '@icons/leads.svg';
+import companyIcon from '@icons/company.svg';
 
 import Form from './form';
 import Header from "@ui/header";
@@ -97,7 +97,7 @@ const Companies: React.FC<PropsObject> = () => {
 
           <div className="cursor-pointer col-span-2">
             <div className="flex gap-3 p-3 items-center">
-              <Image src={defaultUser} alt='user image' className="rounded-full bg-zinc-100 p-3" width={50} height={50} />
+              <Image src={companyIcon} alt='user image' className="rounded-full bg-zinc-100 p-3" width={50} height={50} />
               <div>
                 <Heading label={`${company.name}`} className={"text-sm"} />
                 <span className="text-xs text-zinc-400">{company?.employees}</span>

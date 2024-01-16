@@ -92,23 +92,35 @@ const Statuses: React.FC<PropsObject> = () => {
 
       <Filters filters={filters} setFilters={setFilters} count={statusesCount} />
 
-      {statuses?.length ? statuses.map((company: any, index: number) => (
-        <div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
+        {statuses?.length ?
+          <table className="w-full table-auto text-sm">
+            <tbody className='bg-zinc-100 text-zinc-500 font-bold'>
+              <tr>
+                <td className='py-2 mb-3 px-4 rounded-tl-xl rounded-bl-xl'>type</td>
+                <td className='py-2 mb-3 px-4'>style</td>
+                <td className='py-2  mb-3 px-4 text-center'>status</td>
+                <td className='py-2  mb-3 px-4 rounded-tr-xl rounded-br-xl text-end'>action</td>
+              </tr>
+            </tbody>
+            <tbody>
+              {statuses.map((status: any, index: number) => (
+                <tr key={index}>
+                  <td className='pt-2 px-4'>{status.type}</td>
+                  <td className='pt-2 px-4'>{status.style}</td>
+                  <td className='pt-2 px-4 text-center'><Tag label={status.value} className={status.style} /></td>
+                  <td className='pt-2 px-4 text-right'> <Action className="p-2" width={30} icon={EditIcon} onClick={() => {
+                    setModalHeading('update company')
+                    setStatusForm(status);
+                    setStatusModal(true);
+                  }} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          :
+          <NoRecord label="statuses" />
+        }
 
-          <div className="flex justify-end items-center gap-3 col-span-2 ">
-            {company.url && <a href={company.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>}
-            <Action className="p-2" height={40} width={36} icon={EditIcon} onClick={() => {
-              setModalHeading('update company')
-              setStatusForm(company);
-              setStatusModal(true);
-            }} />
-          </div>
-
-
-        </div>
-      )) :
-        <NoRecord label="statuses" />
-      }
 
 
     </>
