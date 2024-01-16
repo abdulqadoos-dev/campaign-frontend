@@ -5,3 +5,11 @@ export const statusOptions = [
   { label: "confirmed", value: "confirmed" },
   { label: "requested", value: "requested" }
 ]
+
+
+export const statusTypeOptions = [
+  { label: "leads", value: "leads" },
+  { label: "companies", value: "companies" },
+  { label: "activites", value: "activites" },
+  { label: "campaigns", value: "campaigns" },
+]

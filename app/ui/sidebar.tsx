@@ -12,6 +12,7 @@ import Companies from "@icons/company.svg";
 import UserImage from '@images/person.jpeg';
 import Dashboard from '@icons/dashboard.svg';
 import Campaigns from '@icons/campaigns.svg';
+import Minus from '@icons/minus.svg';
 
 import Tag from '@ui/tag';
 import Heading from '@ui/heading';
@@ -52,10 +53,19 @@ const Sidebar: React.FC<{}> = () => {
           <span> Leads</span>
         </Link>
 
-
         <Link href="/companies" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/companies' ? 'bg-lime-400' : ''} `}>
           <Image src={Companies} alt="campaign icon" width={0} height={20} />
           <span> Companies</span>
+        </Link>
+
+        <Link href="/activites" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/activites' ? 'bg-lime-400' : ''} `}>
+          <Image src={Minus} alt="campaign icon" width={0} height={20} />
+          <span> Activites</span>
+        </Link>
+
+        <Link href="/statuses" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/statuses' ? 'bg-lime-400' : ''} `}>
+          <Image src={Minus} alt="campaign icon" width={0} height={20} />
+          <span> Statuses</span>
         </Link>
 
         <Link href="/users" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/users' ? 'bg-lime-400' : ''} `}>

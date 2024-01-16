@@ -23,6 +23,7 @@ import NoRecord from '@/app/ui/noRecord';
 import Filters from '@/app/ui/filters';
 import { convertFiltersToQuery } from '@/app/functions';
 import Alert from '@/app/ui/alert';
+import { statusOptions } from '@/app/constants';
 
 interface PropsObject {
 
@@ -89,7 +90,7 @@ const Leads: React.FC<PropsObject> = () => {
         }} />
       </Header>
 
-      <Filters filters={filters} setFilters={setFilters} count={leadsCount} />
+      <Filters filters={filters} setFilters={setFilters} count={leadsCount} options={statusOptions} />
 
       {leads?.length ? leads.map((lead: any, index: number) => (
         <div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">

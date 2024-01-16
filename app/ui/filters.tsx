@@ -1,6 +1,5 @@
 import Input from '@/app/ui/input';
 import Select from '@/app/ui/select';
-import { statusOptions } from '@/app/constants';
 import Action from '@/app/ui/action';
 import leftIcon from '@icons/chevron-left.svg';
 import rightIcon from '@icons/chevron-right.svg';
@@ -9,11 +8,12 @@ interface Props {
   filters: { query: string, status: string, skip: number, take: number };
   setFilters: any;
   count: any;
+  options?: any;
 
 }
 
 
-const Filters: React.FC<Props> = ({ filters, setFilters, count }) => {
+const Filters: React.FC<Props> = ({ filters, setFilters, count, options }) => {
   return <section className="flex items-center justify-between">
 
     <div className="flex items-center gap-3">
@@ -26,12 +26,14 @@ const Filters: React.FC<Props> = ({ filters, setFilters, count }) => {
         }}
       />
 
-      <Select palceholder="All" name='status' className="w-fit" selected={filters.status} options={statusOptions}
+      {options && <Select palceholder="All" name='status' className="w-fit" selected={filters.status} options={options}
         onChange={(e: any) => {
           let newFilters = { ...filters, status: e.target.value, skip: 0 }
           setFilters(newFilters)
         }}
-      />
+      />}
+
+
     </div>
 
     <div className="flex items-center text-sm text-zinc-400 gap-2">
