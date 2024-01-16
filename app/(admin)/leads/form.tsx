@@ -32,6 +32,7 @@ interface Props {
     url?: string,
     status?: string,
     notes?: string,
+    address?: string,
     designation?: string
   }
 }
@@ -47,7 +48,7 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
 
   useEffect(() => {
     if (state?.status === 201 || state?.status === 200) {
-      setResponse(`Lead ${state?.status === 200 ? 'Updated' :state.message}`)
+      setResponse(`Lead ${state?.status === 200 ? 'Updated' : state.message}`)
       closeModal();
       refreshLeads();
     };
@@ -57,8 +58,6 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
 
   return (
     <Modal heading={heading} closeModal={closeModal} >
-
-
 
 
       <form action={formAction}>
@@ -79,16 +78,15 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
         <Input type="url" label="url" name="url" value={leadForm?.url}
           onChange={(e: any) => setLeadForm({ ...leadForm, url: e.target.value })}
         />
-
+        <Input type="text" label="address" name="address" value={leadForm?.address}
+          onChange={(e: any) => setLeadForm({ ...leadForm, address: e.target.value })}
+        />
         <Select label='status' name='status' options={statusOptions} selected={leadForm?.status}
           onChange={(e: any) => setLeadForm({ ...leadForm, status: e.target.value })}
         />
-
         <Textarea name='notes' label='notes' value={leadForm?.notes}
           onChange={(e: any) => setLeadForm({ ...leadForm, notes: e.target.value })}
         />
-
-
         <div className="grid justify-items-stretch">
           <Button lable="save" className="w-32 my-2 justify-self-end" active="true" />
         </div>

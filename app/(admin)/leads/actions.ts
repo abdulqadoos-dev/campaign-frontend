@@ -15,6 +15,7 @@ export const saveLead = async (prevState: any, formData: FormData) => {
     email: formData.get('email'),
     status: formData.get('status'),
     notes: formData.get('notes'),
+    address: formData.get('address'),
   }
 
   const response = leadId ? await save(`/leads/${+leadId}`, "PATCH", lead) : await save('/leads', "POST", lead);

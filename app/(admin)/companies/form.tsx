@@ -31,7 +31,8 @@ interface Props {
     status?: string,
     notes?: string,
     type?: string,
-    country?: string,
+    address?: string,
+    hiringFrom?: string,
     employees?: string
   }
 }
@@ -77,8 +78,12 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
         <Input type="url" label="url" name="url" value={companyForm?.url}
           onChange={(e: any) => setCompanyForm({ ...companyForm, url: e.target.value })}
         />
-        <Input type="text" label="country" name="country" value={companyForm?.country}
-          onChange={(e: any) => setCompanyForm({ ...companyForm, country: e.target.value })}
+        <Input type="text" label="address" name="address" value={companyForm?.address}
+          onChange={(e: any) => setCompanyForm({ ...companyForm, address: e.target.value })}
+        />
+
+        <Input type="text" label="hiring from" name="hiring_form" value={companyForm?.hiringFrom}
+          onChange={(e: any) => setCompanyForm({ ...companyForm, hiringFrom: e.target.value })}
         />
         <Select label='status' name='status' options={statusOptions} selected={companyForm?.status}
           onChange={(e: any) => setCompanyForm({ ...companyForm, status: e.target.value })}
