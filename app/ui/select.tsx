@@ -14,7 +14,7 @@ const Select: React.FC<Props> = ({ name, label, options, selected, onChange, pal
 
   return (
     <div className="my-3">
-      {label && <label className="text-xs ml-4 mb-4 capitalize text-zinc-800">{label}</label>}
+      {label && <label className="text-sm ml-3 text-zinc-800">{label}</label>}
       <select
         name={name}
         onChange={onChange}

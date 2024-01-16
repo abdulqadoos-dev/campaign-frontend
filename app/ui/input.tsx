@@ -12,7 +12,7 @@ interface Props {
 const Input: React.FC<Props> = ({ type, placeholder, name, label, value, onChange }) => {
   return (
     <div className="my-3">
-      {label && <label className="text-sm ml-4 mb-4 capitalize text-zinc-800">{label}</label>}
+      {label && <label className="text-sm ml-3 lowercase text-zinc-800">{label}</label>}
       <input
         type={type}
         name={name}

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 
 import leadsIcon from '@icons/leads.svg';
 import usersIcon from '@icons/users.svg';
+import companyIcon from '@icons/company.svg';
 import dashbaordIcon from '@icons/dashboard.svg';
 import campaignsIcon from '@icons/campaigns.svg';
 
@@ -17,7 +18,7 @@ interface Props {
 const Header: React.FC<Props> = ({ children }) => {
 
 
-  const { heading, icon } = breadcrumbs( usePathname().replace("/", ""));
+  const { heading, icon } = breadcrumbs(usePathname().replace("/", ""));
 
   return (
     <header className="flex justify-between items-center">
@@ -37,8 +38,8 @@ export default Header;
 
 
 
-const breadcrumbs = (heading : string) => {
- 
+const breadcrumbs = (heading: string) => {
+
   switch (heading) {
 
     case "dashboard":
@@ -46,6 +47,9 @@ const breadcrumbs = (heading : string) => {
 
     case "campaigns":
       return { heading, icon: campaignsIcon }
+
+    case "companies":
+      return { heading, icon: companyIcon }
 
     case "leads":
       return { heading, icon: leadsIcon }

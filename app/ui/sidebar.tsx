@@ -8,6 +8,7 @@ import { redirect, usePathname } from 'next/navigation';
 import Leads from '@icons/leads.svg';
 import Logout from '@icons/logout.svg';
 import UsersIcon from "@icons/users.svg";
+import Companies from "@icons/company.svg";
 import UserImage from '@images/person.jpeg';
 import Dashboard from '@icons/dashboard.svg';
 import Campaigns from '@icons/campaigns.svg';
@@ -49,6 +50,12 @@ const Sidebar: React.FC<{}> = () => {
         <Link href="/leads" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/leads' ? 'bg-lime-400' : ''} `}>
           <Image src={Leads} alt="lead icon" width={0} height={20} />
           <span> Leads</span>
+        </Link>
+
+
+        <Link href="/companies" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/companies' ? 'bg-lime-400' : ''} `}>
+          <Image src={Companies} alt="campaign icon" width={0} height={20} />
+          <span> Companies</span>
         </Link>
 
         <Link href="/users" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/users' ? 'bg-lime-400' : ''} `}>
