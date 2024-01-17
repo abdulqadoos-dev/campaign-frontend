@@ -1,3 +1,5 @@
+import { JSON_PARSE, JSON_STRINGIFY } from "./constants"
+
 export const convertFiltersToQuery = (newFilters: any) => {
 
   const defaultFilters = {
@@ -31,5 +33,18 @@ export const convertFiltersToQuery = (newFilters: any) => {
   }
 
   return defaultFilters;
+
+}
+
+export const convertJSON = (data: any, conversion: any) => {
+
+  switch (conversion) {
+    case JSON_PARSE:
+      return JSON.parse(data);
+    case JSON_STRINGIFY:
+      return JSON.stringify(data);
+    default:
+      return []
+  }
 
 }

@@ -1,5 +1,14 @@
 export const AUTH_ROUTES = ['/login'];
 
+export const LEADS = "leads";
+export const ACTIVITIES = "activities";
+export const COMPANIES = "companies";
+
+export const JSON_PARSE = "parse";
+export const JSON_STRINGIFY = "stringify";
+
+
+
 export const statusOptions = [
   { label: "acitve", value: "active" },
   { label: "confirmed", value: "confirmed" },
@@ -8,8 +17,7 @@ export const statusOptions = [
 
 
 export const statusTypeOptions = [
-  { label: "leads", value: "leads" },
-  { label: "companies", value: "companies" },
-  { label: "activites", value: "activites" },
-  { label: "campaigns", value: "campaigns" },
+  { label: "leads", value: LEADS },
+  { label: "companies", value: COMPANIES },
+  { label: ACTIVITIES, value: ACTIVITIES },
 ]

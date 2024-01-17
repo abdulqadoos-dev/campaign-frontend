@@ -120,9 +120,6 @@ const Activities: React.FC<PropsObject> = () => {
         :
         <NoRecord label="activities" />
       }
-
-
-
     </>
   )
 

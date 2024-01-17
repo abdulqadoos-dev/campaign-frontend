@@ -24,3 +24,9 @@ export const searchStatuses = async (filters: any) => {
   const response = await save('/statuses/search', "POST", filters);
   return await response.json();
 }
+
+
+export const getStatusesByType = async (type: string) => {
+  const response = await save('/statuses/type', "POST", {type});
+  return await response.json();
+}
