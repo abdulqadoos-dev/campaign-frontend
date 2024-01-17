@@ -2,23 +2,24 @@
 
 import { save, get } from '@/app/apis'
 
+// export const saveLead = async (prevState: any, formData: FormData) => {
+export const saveLead = async (formData: any) => {
 
-export const saveLead = async (prevState: any, formData: FormData) => {
+  // const id = formData.get('id');
 
-  const leadId = formData.get('id');
+  // const newFormData = {
+  //   firstName: formData.get('firstName'),
+  //   lastName: formData.get('lastName'),
+  //   designation: formData.get('designation'),
+  //   url: formData.get('url'),
+  //   email: formData.get('email'),
+  //   notes: formData.get('notes'),
+  //   address: formData.get('address'),
+  //   // statusId: formData.get('statusId'),
+  //   status: {id: 1},
+  // }
 
-  const lead = {
-    firstName: formData.get('firstName'),
-    lastName: formData.get('lastName'),
-    designation: formData.get('designation'),
-    url: formData.get('url'),
-    email: formData.get('email'),
-    status: formData.get('status'),
-    notes: formData.get('notes'),
-    address: formData.get('address'),
-  }
-
-  const response = leadId ? await save(`/leads/${+leadId}`, "PATCH", lead) : await save('/leads', "POST", lead);
+  const response = formData.id ? await save(`/leads/${+formData.id}`, "PATCH", formData) : await save('/leads', "POST", formData);
   const data = response.ok && response.status === 201 || response.status === 200 && await response.json();
   return data && { message: response.statusText, status: response.status }
 

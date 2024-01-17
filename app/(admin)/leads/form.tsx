@@ -1,21 +1,17 @@
 'use client'
-import { useFormState } from 'react-dom'
-
 
 import Modal from "@ui/modal";
 import Input from "@ui/input";
 import Button from "@ui/button";
-import Select from '@ui/select';
+
+import Select from 'react-select';
 
 import { saveLead } from "./actions";
 
 import { useEffect, useState } from "react";
 import Textarea from '@/app/ui/textarea';
-import { statusOptions } from '@/app/constants';
-
-
-import Alert from '@/app/ui/alert';
-
+import { LEADS } from '@/app/constants';
+import { getStatusesByType } from '../statuses/actions';
 
 interface Props {
 
@@ -37,30 +33,31 @@ interface Props {
   }
 }
 
-const initialState = {
-  message: '',
-  status: null
-}
 
 const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, refreshLeads, setResponse }) => {
 
-  const [state, formAction] = useFormState(saveLead, initialState);
+  const [statusOptions, setStatusOptions] = useState([]);
 
   useEffect(() => {
-    if (state?.status === 201 || state?.status === 200) {
-      setResponse(`Lead ${state?.status === 200 ? 'Updated' : state.message}`)
+    getStatusesByType(LEADS).then(result => {
+      if (result) setStatusOptions(result)
+    });
+  }, [])
+
+
+  const handleSubmit = async () => {
+    const response = await saveLead(leadForm);
+    if (response?.status === 201 || response?.status === 200) {
+      setResponse(`Lead ${response?.status === 200 ? 'Updated' : response.message}`)
       closeModal();
       refreshLeads();
     };
-
-  }, [state])
-
+  }
 
   return (
     <Modal heading={heading} closeModal={closeModal} >
 
-
-      <form action={formAction}>
+      <form action={handleSubmit}>
 
         <input type="hidden" name="id" value={leadForm?.id} />
         <Input type="text" label="first Name" name="firstName" value={leadForm?.firstName}
@@ -81,9 +78,14 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
         <Input type="text" label="address" name="address" value={leadForm?.address}
           onChange={(e: any) => setLeadForm({ ...leadForm, address: e.target.value })}
         />
-        <Select label='status' name='status' options={statusOptions} selected={leadForm?.status}
-          onChange={(e: any) => setLeadForm({ ...leadForm, status: e.target.value })}
+
+        <Select
+          name="status"
+          onChange={(value) => setLeadForm({ ...leadForm, status: value })}
+          defaultValue={leadForm?.status}
+          options={statusOptions}
         />
+
         <Textarea name='notes' label='notes' value={leadForm?.notes}
           onChange={(e: any) => setLeadForm({ ...leadForm, notes: e.target.value })}
         />
