@@ -4,7 +4,7 @@ import Modal from "@ui/modal";
 import Input from "@ui/input";
 import Button from "@ui/button";
 
-import Select from 'react-select';
+import ReactSelect from "@/app/ui/reactSelect";
 
 import { saveLead } from "./actions";
 
@@ -79,9 +79,9 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
           onChange={(e: any) => setLeadForm({ ...leadForm, address: e.target.value })}
         />
 
-        <Select
-          name="status"
-          onChange={(value) => setLeadForm({ ...leadForm, status: value })}
+        <ReactSelect
+          label="status"
+          onChange={(value: any) => setLeadForm({ ...leadForm, status: value })}
           defaultValue={leadForm?.status}
           options={statusOptions}
         />
