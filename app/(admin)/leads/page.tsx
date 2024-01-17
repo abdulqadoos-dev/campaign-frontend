@@ -23,7 +23,9 @@ import NoRecord from '@/app/ui/noRecord';
 import Filters from '@/app/ui/filters';
 import { convertFiltersToQuery } from '@/app/functions';
 import Alert from '@/app/ui/alert';
-import { statusOptions } from '@/app/constants';
+
+import { LEADS } from '@/app/constants';
+import { getStatusesByType } from '../statuses/actions';
 
 interface PropsObject {
 
@@ -44,6 +46,15 @@ const Leads: React.FC<PropsObject> = () => {
 
   useEffect(() => {
     fetchLeads(filters)
+  }, [])
+
+
+  const [statusOptions, setStatusOptions] = useState([]);
+
+  useEffect(() => {
+    getStatusesByType(LEADS).then(result => {
+      if (result) setStatusOptions(result)
+    });
   }, [])
 
   useEffect(() => {
@@ -73,6 +84,7 @@ const Leads: React.FC<PropsObject> = () => {
     <>
       {leadModal && <Form
         leadForm={leadForm}
+        statusOptions={statusOptions}
         setLeadForm={(newLead: any) => setLeadForm(newLead)}
         heading={modalHeading}
         closeModal={() => setLeadModal(false)}
@@ -93,21 +105,25 @@ const Leads: React.FC<PropsObject> = () => {
       <Filters filters={filters} setFilters={setFilters} count={leadsCount} options={statusOptions} />
 
       {leads?.length ? leads.map((lead: any, index: number) => (
-        <div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
+        <div key={index} className="grid grid-cols-9 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
 
-          <div className="cursor-pointer col-span-2">
+          <div className="cursor-pointer col-span-3">
             <div className="flex gap-3 p-3 items-center">
               <Image src={defaultUser} alt='user image' className="rounded-full bg-zinc-100 p-3" width={50} height={50} />
               <div>
                 <Heading label={`${lead.firstName} ${lead.lastName}`} className={"text-sm"} />
-                <span className="text-xs text-zinc-400">{lead?.designation}</span>
+                <div className="text-xs text-zinc-500">{lead?.email}</div>
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-1 col-span-2 overflow-clip">
-            <p className="text-sm " >{lead.email}</p>
-          {lead.notes &&  <p className="text-xs text-zinc-400">{lead.notes.substr(0, 40)}</p> } 
+
+
+          <div className="flex flex-col gap-1 col-span-3 overflow-clip">
+            <div className="text-xs text-zinc-800 font-bold">{lead?.designation} {lead?.company && <span>at {lead.company.name}</span>}   </div>
+            <div className="text-xs text-lime-500">{lead?.address}</div>
+            {lead.notes && <p className="text-xs text-zinc-500">{lead.notes.substr(0, 40)}</p>}
           </div>
+
 
           <div className="flex justify-center ">
             {lead.status && <Tag label={lead.status.value} className={lead.status.style} />}

@@ -7,11 +7,8 @@ import Button from "@ui/button";
 import ReactSelect from "@/app/ui/reactSelect";
 
 import { saveLead } from "./actions";
-
-import { useEffect, useState } from "react";
 import Textarea from '@/app/ui/textarea';
-import { LEADS } from '@/app/constants';
-import { getStatusesByType } from '../statuses/actions';
+
 
 interface Props {
 
@@ -20,6 +17,7 @@ interface Props {
   refreshLeads: any;
   setLeadForm: any;
   setResponse?: any;
+  statusOptions?: any;
   leadForm?: {
     id?: number,
     firstName?: string,
@@ -34,15 +32,7 @@ interface Props {
 }
 
 
-const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, refreshLeads, setResponse }) => {
-
-  const [statusOptions, setStatusOptions] = useState([]);
-
-  useEffect(() => {
-    getStatusesByType(LEADS).then(result => {
-      if (result) setStatusOptions(result)
-    });
-  }, [])
+const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, refreshLeads, setResponse, statusOptions }) => {
 
 
   const handleSubmit = async () => {
