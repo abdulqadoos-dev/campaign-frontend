@@ -14,10 +14,12 @@ const customStyles = {
   control: (provided: any) => ({
     ...provided,
     fontSize: '14px',
-    border: "none",
+    border: 0,
+    outline: 'none',
+    boxShadow: 'none',
     padding: "0 15px",
     borderRadius: '50px', // Adjust the border-radius as needed
-    backgroundColor: '#f0f0f0', // Set your desired background color
+    backgroundColor: '#F4F4F5', // Set your desired background color
   }),
 
   valueContainer: (provided: any) => ({
@@ -28,12 +30,11 @@ const customStyles = {
 
   option: (provided: any, state: any) => ({
     ...provided,
-    padding: "5px 10px",
-    cursour: "pointer",
+    padding: "10px 15px",
     fontSize: '14px',
-    margin: "3px 0",
-    backgroundColor: state.isSelected ? '#A3E636' : 'transparent', // Set the background color for selected and non-selected options
-    color: state.isSelected ? "black" : 'black', // Set the text color for selected and non-selected options
+    margin: "6px 0",
+    backgroundColor: state.isSelected ? '#A3E636' : '#F4F4F5', // Set the background color for selected and non-selected options
+    color: state.isSelected ? "#000000" : '#000000', // Set the text color for selected and non-selected options
     borderRadius: '20px', // Adjust the border-radius as needed
     '&:hover': {
       backgroundColor: '#A3E636',
@@ -43,9 +44,9 @@ const customStyles = {
   menu: (provided: any) => ({
     ...provided,
     padding: '5px', // Set the desired padding for the menu
-    outline: 'none',
     borderRadius: '20px',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#FAFAFA',
+    boxShadow: 'rgba(17, 17, 26, 0.05) 0px 4px 8px, rgba(17, 17, 26, 0.05) 0px 8px 16px;'
   }),
 };
 
@@ -56,6 +57,7 @@ const ReactSelect: React.FC<Props> = ({ label, options, defaultValue, onChange }
       {label && <label className="text-sm ml-3 text-zinc-800">{label}</label>}
 
       <Select
+        placeholder=""
         styles={customStyles}
         isSearchable={true}
         defaultValue={defaultValue}
