@@ -106,7 +106,7 @@ const Statuses: React.FC<PropsObject> = () => {
             {statuses.map((status: any, index: number) => (
               <tr key={index}>
                 <td className='py-2 px-4 border-b border-dotted'>{status.type}</td>
-                <td className='py-2 px-4 border-b border-dotted'>{status.style}</td>
+                <td className='py-2 px-4 border-b border-dotted '>{status.style}</td>
                 <td className='py-2 px-4 border-b border-dotted text-center'><Tag label={status.value} className={status.style} /></td>
                 <td className='py-2 px-4 border-b border-dotted text-right'> <Action className="p-2" width={30} icon={EditIcon} onClick={() => {
                   setModalHeading('update status')

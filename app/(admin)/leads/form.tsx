@@ -43,7 +43,7 @@ interface Props {
 const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, refreshLeads, setResponse, statusOptions }) => {
 
 
-  //  companies 
+  //  todo: companies send to a SelectCompanies component
   const [companies, setCompanies] = useState([]);
   const [filters, setFilters] = useState(defaultFilters)
 

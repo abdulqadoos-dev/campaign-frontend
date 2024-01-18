@@ -1,19 +1,15 @@
 'use client'
-import { useFormState } from 'react-dom'
 
 
 import Modal from "@ui/modal";
 import Input from "@ui/input";
 import Button from "@ui/button";
-import Select from '@ui/select';
 
 import { saveCompany } from "./actions";
 
-import { useEffect } from "react";
 import Textarea from '@/app/ui/textarea';
-import { statusOptions } from '@/app/constants';
-
-
+import ReactSelect from "@/app/ui/reactSelect";
+import { hirringOptions } from "@/app/constants";
 
 interface Props {
 
@@ -22,6 +18,7 @@ interface Props {
   refreshCompanies: any;
   setCompanyForm: any;
   setResponse?: any;
+  statusOptions?: any
   companyForm?: {
     id?: number,
     name?: string,
@@ -33,34 +30,29 @@ interface Props {
     type?: string,
     address?: string,
     hiringFrom?: string,
-    employees?: string
+    employees?: string,
+
   }
 }
 
-const initialState = {
-  message: '',
-  status: null
-}
 
-const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModal, refreshCompanies, setResponse }) => {
+const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModal, refreshCompanies, setResponse, statusOptions }) => {
 
-  const [state, formAction] = useFormState(saveCompany, initialState);
 
-  useEffect(() => {
-    if (state?.status === 201 || state?.status === 200) {
-      setResponse(`Lead ${state?.status === 200 ? 'Updated' : state.message}`)
+  const handleSubmit = async () => {
+    const response = await saveCompany(companyForm);
+    if (response?.status === 201 || response?.status === 200) {
+      setResponse(`Company ${response?.status === 200 ? 'Updated' : response.message}`)
       closeModal();
       refreshCompanies();
     };
-
-  }, [state])
-
+  }
 
   return (
     <Modal heading={heading} closeModal={closeModal} >
 
 
-      <form action={formAction}>
+      <form action={handleSubmit}>
 
         <input type="hidden" name="id" value={companyForm?.id} />
         <Input type="text" label="Name" name="name" value={companyForm?.name}
@@ -69,7 +61,7 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
         <Input type="text" label="company type" name="type" value={companyForm?.type}
           onChange={(e: any) => setCompanyForm({ ...companyForm, type: e.target.value })}
         />
-        <Input type="number" label="no of employees" name="employees" value={companyForm?.employees}
+        <Input type="text" label="no of employees" name="employees" value={companyForm?.employees}
           onChange={(e: any) => setCompanyForm({ ...companyForm, employees: e.target.value })}
         />
         <Input type="text" label="email" name="email" value={companyForm?.email}
@@ -82,12 +74,22 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
           onChange={(e: any) => setCompanyForm({ ...companyForm, address: e.target.value })}
         />
 
-        <Input type="text" label="hiring from" name="hiring_form" value={companyForm?.hiringFrom}
-          onChange={(e: any) => setCompanyForm({ ...companyForm, hiringFrom: e.target.value })}
+        <ReactSelect
+          label="hirring from"
+          onChange={(value: any) => setCompanyForm({ ...companyForm, hiringFrom: JSON.stringify(value) })}
+          defaultValue={companyForm?.hiringFrom && JSON.parse(companyForm.hiringFrom)}
+          options={hirringOptions}
         />
-        <Select label='status' name='status' options={statusOptions} selected={companyForm?.status}
-          onChange={(e: any) => setCompanyForm({ ...companyForm, status: e.target.value })}
+
+
+        <ReactSelect
+          label="status"
+          onChange={(value: any) => setCompanyForm({ ...companyForm, status: value })}
+          defaultValue={companyForm?.status}
+          options={statusOptions}
         />
+
+
         <Textarea name='notes' label='notes' value={companyForm?.notes}
           onChange={(e: any) => setCompanyForm({ ...companyForm, notes: e.target.value })}
         />

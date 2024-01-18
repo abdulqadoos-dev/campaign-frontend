@@ -20,9 +20,10 @@ import companyIcon from '@icons/company.svg';
 import Form from './form';
 
 import { convertFiltersToQuery } from '@/app/functions';
-import { defaultFilters, statusOptions } from '@/app/constants';
 import { searchCompanies } from '@/app/(admin)/companies/actions';
 
+import { COMPANIES, JSON_PARSE, defaultFilters } from '@/app/constants';
+import { getStatusesByType } from '../statuses/actions';
 
 interface PropsObject {
 
@@ -46,17 +47,13 @@ const Companies: React.FC<PropsObject> = () => {
   }, [])
 
   useEffect(() => {
-
     const delay = setTimeout(() => {
       fetchCompanies(filters)
     }, 500)
-
     return () => clearTimeout(delay)
-
   }, [filters])
 
   const fetchCompanies = (newFilters: any) => {
-
     searchCompanies(convertFiltersToQuery(newFilters)).then(result => {
       if (result?.records) {
         setCompanies(result.records)
@@ -66,6 +63,15 @@ const Companies: React.FC<PropsObject> = () => {
   }
 
 
+  const [statusOptions, setStatusOptions] = useState([]);
+
+  useEffect(() => {
+    getStatusesByType(COMPANIES).then(result => {
+      if (result) setStatusOptions(result)
+    });
+  }, [])
+
+
   return (
 
     <>
@@ -73,6 +79,7 @@ const Companies: React.FC<PropsObject> = () => {
         companyForm={companyForm}
         setCompanyForm={(newLead: any) => setCompanyForm(newLead)}
         heading={modalHeading}
+        statusOptions={statusOptions}
         closeModal={() => setCompanyModal(false)}
         refreshCompanies={() => fetchCompanies(filters)}
         setResponse={(message: any) => setReponse(message)}
@@ -95,20 +102,22 @@ const Companies: React.FC<PropsObject> = () => {
 
           <div className="cursor-pointer col-span-2">
             <div className="flex gap-3 p-3 items-center">
-              <Image src={companyIcon} alt='user image' className="rounded-full bg-zinc-100 p-3" width={50} height={50} />
+              <Image src={companyIcon} alt='user image' className="rounded-2xl bg-zinc-100 p-3" width={50} height={50} />
               <div>
                 <Heading label={`${company.name}`} className={"text-sm"} />
-                <span className="text-xs text-zinc-400">{company?.employees}</span>
+                <div className="text-xs text-lime-500">{company?.hiringFrom && JSON.parse(company.hiringFrom).value}</div>
+                <div className="text-xs text-zinc-500">{company?.email}</div>
               </div>
             </div>
           </div>
           <div className="flex flex-col gap-1 col-span-2 overflow-clip">
-            <p className="text-sm " >{company.email}</p>
-            <p className="text-xs text-zinc-400">{company.notes.substr(0, 40)}</p>
+            <div className="text-xs text-zinc-800 font-bold">{company?.type} {company.address && ` -  ${company.address}`}  </div>
+            <div className="text-xs text-lime-500">{company?.employees} employees</div>
+            {company.notes && <p className="text-xs text-zinc-500">{company.notes.substr(0, 40)}</p>}
           </div>
 
           <div className="flex justify-center ">
-            {company.status && <Tag label={company.status} className="w-fit" />}
+            {company.status && <Tag label={company.status.value} className={company.status.style} />}
           </div>
 
           <div className="flex justify-end items-center gap-3 col-span-2 ">

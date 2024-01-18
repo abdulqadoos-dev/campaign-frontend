@@ -119,7 +119,7 @@ const Leads: React.FC<PropsObject> = () => {
 
 
           <div className="flex flex-col gap-1 col-span-3 overflow-clip">
-            <div className="text-xs text-zinc-800 font-bold">{lead?.designation} {lead?.company && <span>at {lead.company.name}</span>}   </div>
+            <div className="text-xs text-zinc-700 font-bold">{lead?.designation} {lead?.company &&  <span className='text-blue-400'> {lead.company.name}</span>}   </div>
             <div className="text-xs text-lime-500">{lead?.address}</div>
             {lead.notes && <p className="text-xs text-zinc-500">{lead.notes.substr(0, 40)}</p>}
           </div>

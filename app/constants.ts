@@ -9,16 +9,18 @@ export const JSON_STRINGIFY = "stringify";
 
 
 
-export const statusOptions = [
-  { label: "acitve", value: "active" },
-  { label: "confirmed", value: "confirmed" },
-  { label: "requested", value: "requested" }
+export const hirringOptions = [
+  { label: "remote", value: "remote" },
+  { label: "anyware", value: "anyware" },
+  { label: "hybraid", value: "hybraid" },
+  { label: "on-site", value: "on-site" },
+  { label: "in-countroy", value: "in-countroy" },
 ]
 
 
 export const statusTypeOptions = [
-  { label: "leads", value: LEADS },
-  { label: "companies", value: COMPANIES },
+  { label: LEADS, value: LEADS },
+  { label: COMPANIES, value: COMPANIES },
   { label: ACTIVITIES, value: ACTIVITIES },
 ]
 

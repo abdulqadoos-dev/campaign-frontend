@@ -2,26 +2,11 @@
 
 import { save } from '@/app/apis'
 
-export const saveCompany = async (prevState: any, formData: FormData) => {
 
-  const leadId = formData.get('id');
-
-  const lead = {
-    name: formData.get('name'),
-    employees: formData.get('employees'),
-    type: formData.get('type'),
-    url: formData.get('url'),
-    email: formData.get('email'),
-    status: formData.get('status'),
-    notes: formData.get('notes'),
-    address: formData.get('address'),
-    hiringFrom: formData.get('hiring_form'),
-  }
-
-  const response = leadId ? await save(`/companies/${+leadId}`, "PATCH", lead) : await save('/companies', "POST", lead);
+export const saveCompany = async (formData: any) => {
+  const response = formData.id ? await save(`/companies/${+formData.id}`, "PATCH", formData) : await save('/companies', "POST", formData);
   const data = response.ok && response.status === 201 || response.status === 200 && await response.json();
   return data && { message: response.statusText, status: response.status }
-
 }
 
 
