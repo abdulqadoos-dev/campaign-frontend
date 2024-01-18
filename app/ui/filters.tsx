@@ -3,6 +3,9 @@ import Select from '@/app/ui/select';
 import Action from '@/app/ui/action';
 import leftIcon from '@icons/chevron-left.svg';
 import rightIcon from '@icons/chevron-right.svg';
+
+import ReactSelect from './reactSelect';
+
 interface Props {
 
   filters: { query: string, status: string, skip: number, take: number };
@@ -26,12 +29,18 @@ const Filters: React.FC<Props> = ({ filters, setFilters, count, options }) => {
         }}
       />
 
-      {options && <Select palceholder="All" name='status' className="w-fit" selected={filters.status} options={options}
-        onChange={(e: any) => {
-          let newFilters = { ...filters, status: e.target.value, skip: 0 }
-          setFilters(newFilters)
-        }}
-      />}
+
+      {options && <div className="w-40">
+        <ReactSelect
+          placeholder={'status'}
+          options={[{ id: null, label: "all", value: "" }, ...options,]}
+          onChange={(value: any) => {
+            let newFilters = { ...filters, status: value, skip: 0 }
+            setFilters(newFilters)
+          }}
+        />
+      </div>}
+
 
 
     </div>

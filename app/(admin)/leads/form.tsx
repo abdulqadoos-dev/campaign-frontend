@@ -114,7 +114,7 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
           onChange={(e: any) => setLeadForm({ ...leadForm, address: e.target.value })}
         />
 
-        <Separator className="mt-5" />
+        <Heading label="additional" className="text-sm mx-2 my-5 " />
 
         <ReactSelect
           label="status"

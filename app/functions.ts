@@ -25,10 +25,10 @@ export const convertFiltersToQuery = (newFilters: any) => {
     }
   }
 
-  if (newFilters.status) {
+  if (newFilters.status && newFilters.status.value) {
     return {
       ...defaultFilters,
-      where: { status: newFilters.status },
+      where: { status: { value: newFilters.status.value } },
     }
   }
 
