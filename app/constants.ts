@@ -21,3 +21,6 @@ export const statusTypeOptions = [
   { label: "companies", value: COMPANIES },
   { label: ACTIVITIES, value: ACTIVITIES },
 ]
+
+
+export const defaultFilters = { query: "", status: "", skip: 0, take: 20 }

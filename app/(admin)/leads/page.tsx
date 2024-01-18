@@ -24,7 +24,7 @@ import Filters from '@/app/ui/filters';
 import { convertFiltersToQuery } from '@/app/functions';
 import Alert from '@/app/ui/alert';
 
-import { LEADS } from '@/app/constants';
+import { LEADS, defaultFilters } from '@/app/constants';
 import { getStatusesByType } from '../statuses/actions';
 
 interface PropsObject {
@@ -41,7 +41,7 @@ const Leads: React.FC<PropsObject> = () => {
   const [leads, setLeads] = useState([]);
   const [leadsCount, setLeadsCount] = useState(0);
 
-  const [filters, setFilters] = useState({ query: "", status: "", skip: 0, take: 20 })
+  const [filters, setFilters] = useState(defaultFilters)
 
 
   useEffect(() => {

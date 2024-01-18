@@ -1,29 +1,28 @@
 'use client'
 
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 import Tag from '@ui/tag';
 import Button from "@ui/button";
 import Heading from "@ui/heading";
+import Header from "@ui/header";
+import Action from '@ui/action';
+import NoRecord from '@ui/noRecord';
+import Filters from '@ui/filters';
+import Alert from '@ui/alert';
 
 import AddIcon from "@icons/add.svg";
 import EditIcon from "@icons/edit.svg";
 import RightIcon from "@icons/right.svg";
-
 import companyIcon from '@icons/company.svg';
 
 import Form from './form';
-import Header from "@ui/header";
 
-import { useEffect, useState } from 'react';
-import { searchCompanies } from './actions';
-
-import Action from '@/app/ui/action';
-import NoRecord from '@/app/ui/noRecord';
-import Filters from '@/app/ui/filters';
 import { convertFiltersToQuery } from '@/app/functions';
-import Alert from '@/app/ui/alert';
-import { statusOptions } from '@/app/constants';
+import { defaultFilters, statusOptions } from '@/app/constants';
+import { searchCompanies } from '@/app/(admin)/companies/actions';
+
 
 interface PropsObject {
 
@@ -39,7 +38,7 @@ const Companies: React.FC<PropsObject> = () => {
   const [companies, setCompanies] = useState([]);
   const [companiesCount, setCompaniesCount] = useState(0);
 
-  const [filters, setFilters] = useState({ query: "", status: "", skip: 0, take: 20 })
+  const [filters, setFilters] = useState(defaultFilters)
 
 
   useEffect(() => {
@@ -64,7 +63,6 @@ const Companies: React.FC<PropsObject> = () => {
         setCompaniesCount(result.total)
       }
     });
-
   }
 
 
