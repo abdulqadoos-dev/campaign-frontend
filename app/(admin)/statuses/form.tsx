@@ -1,6 +1,4 @@
 'use client'
-import { useFormState } from 'react-dom'
-
 
 import Modal from "@ui/modal";
 import Input from "@ui/input";
@@ -8,8 +6,6 @@ import Button from "@ui/button";
 import Select from '@ui/select';
 
 import { saveStatus } from "./actions";
-
-import { useEffect } from "react";
 import { statusTypeOptions } from '@/app/constants';
 
 
@@ -30,30 +26,23 @@ interface Props {
   }
 }
 
-const initialState = {
-  message: '',
-  status: null
-}
 
 const Form: React.FC<Props> = ({ heading, statusForm, setStatusForm, closeModal, refreshStatuses, setResponse }) => {
 
-  const [state, formAction] = useFormState(saveStatus, initialState);
-
-  useEffect(() => {
-    if (state?.status === 201 || state?.status === 200) {
-      setResponse(`Status ${state?.status === 200 ? 'Updated' : state.message}`)
+  const handleSubmit = async () => {
+    const response = await saveStatus(statusForm);
+    if (response?.status === 201 || response?.status === 200) {
+      setResponse(`Status ${response?.status === 200 ? 'Updated' : response.message}`)
       closeModal();
       refreshStatuses();
     };
-
-  }, [state])
-
+  }
 
   return (
     <Modal heading={heading} closeModal={closeModal} >
 
 
-      <form action={formAction}>
+      <form action={handleSubmit}>
 
         <input type="hidden" name="id" value={statusForm?.id} />
         <Input type="text" label="label" name="label" value={statusForm?.label}

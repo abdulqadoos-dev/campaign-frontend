@@ -1,29 +1,24 @@
 'use client'
 
-import Image from 'next/image';
 
 import Tag from '@ui/tag';
 import Button from "@ui/button";
-import Heading from "@ui/heading";
-
 import AddIcon from "@icons/add.svg";
 import EditIcon from "@icons/edit.svg";
-import RightIcon from "@icons/right.svg";
-
-import defaultUser from '@icons/leads.svg';
+import CopyIcon from "@icons/copy.svg";
 
 import Form from './form';
 import Header from "@ui/header";
 
 import { useEffect, useState } from 'react';
-import { searchStatuses } from './actions';
+import { saveStatus, searchStatuses } from './actions';
 
 import Action from '@/app/ui/action';
 import NoRecord from '@/app/ui/noRecord';
 import Filters from '@/app/ui/filters';
 import { convertFiltersToQuery } from '@/app/functions';
 import Alert from '@/app/ui/alert';
-import { statusTypeOptions } from '@/app/constants';
+
 
 interface PropsObject {
 
@@ -31,7 +26,7 @@ interface PropsObject {
 
 const Statuses: React.FC<PropsObject> = () => {
 
-  const [response, setReponse] = useState()
+  const [response, setResponse] = useState()
   const [statusForm, setStatusForm] = useState({})
   const [statusModal, setStatusModal] = useState(false);
   const [modalHeading, setModalHeading] = useState('');
@@ -68,6 +63,16 @@ const Statuses: React.FC<PropsObject> = () => {
   }
 
 
+  const cloneStatus = async (status: any) => {
+    const response = await saveStatus(status);
+    if (response?.status === 201 || response?.status === 200) {
+      let message: any = `Status ${response?.status === 200 ? 'Updated' : response.message}`
+      setResponse(message)
+      fetchStatuses(filters)
+    };
+  }
+
+
   return (
 
     <>
@@ -77,10 +82,10 @@ const Statuses: React.FC<PropsObject> = () => {
         heading={modalHeading}
         closeModal={() => setStatusModal(false)}
         refreshStatuses={() => fetchStatuses(filters)}
-        setResponse={(message: any) => setReponse(message)}
+        setResponse={(message: any) => setResponse(message)}
       />}
 
-      {response && <Alert response={response} setResponse={(value: any) => setReponse(value)} />}
+      {response && <Alert response={response} setResponse={(value: any) => setResponse(value)} />}
 
       <Header>
         <Button lable="New Status" icon={AddIcon} onClick={() => {
@@ -108,11 +113,16 @@ const Statuses: React.FC<PropsObject> = () => {
                 <td className='py-2 px-4 border-b border-dotted'>{status.type}</td>
                 <td className='py-2 px-4 border-b border-dotted '>{status.style}</td>
                 <td className='py-2 px-4 border-b border-dotted text-center'><Tag label={status.value} className={status.style} /></td>
-                <td className='py-2 px-4 border-b border-dotted text-right'> <Action className="p-2" width={30} icon={EditIcon} onClick={() => {
-                  setModalHeading('update status')
-                  setStatusForm(status);
-                  setStatusModal(true);
-                }} /></td>
+                <td className='py-2 px-4 border-b border-dotted text-right'>
+                  <Action className="p-2" width={30} icon={CopyIcon} onClick={() => {
+                    cloneStatus({ ...status, id: null })
+                  }} />
+                  <Action className="p-2" width={30} icon={EditIcon} onClick={() => {
+                    setModalHeading('update status')
+                    setStatusForm(status);
+                    setStatusModal(true);
+                  }} />
+                </td>
               </tr>
             ))}
           </tbody>

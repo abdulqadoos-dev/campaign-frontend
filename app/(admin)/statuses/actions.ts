@@ -2,18 +2,8 @@
 
 import { save } from '@/app/apis'
 
-export const saveStatus = async (prevState: any, formData: FormData) => {
-
-  const id = formData.get('id');
-
-  const newFormData = {
-    label: formData.get('label'),
-    value: formData.get('value'),
-    style: formData.get('style'),
-    type: formData.get('type'),
-  }
-
-  const response = id ? await save(`/statuses/${+id}`, "PATCH", newFormData) : await save('/statuses', "POST", newFormData);
+export const saveStatus = async (formData: any) => {
+  const response = formData.id ? await save(`/statuses/${+formData.id}`, "PATCH", formData) : await save('/statuses', "POST", formData);
   const data = response.ok && response.status === 201 || response.status === 200 && await response.json();
   return data && { message: response.statusText, status: response.status }
 

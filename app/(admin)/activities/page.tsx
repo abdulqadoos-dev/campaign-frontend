@@ -7,12 +7,13 @@ import Button from "@ui/button";
 
 import AddIcon from "@icons/add.svg";
 import EditIcon from "@icons/edit.svg";
+import CopyIcon from "@icons/copy.svg";
 
 import Form from './form';
 import Header from "@ui/header";
 
 import { useEffect, useState } from 'react';
-import { searchActivities } from './actions';
+import { saveActivity, searchActivities } from './actions';
 
 import Action from '@/app/ui/action';
 import NoRecord from '@/app/ui/noRecord';
@@ -30,7 +31,7 @@ interface PropsObject {
 
 const Activities: React.FC<PropsObject> = () => {
 
-  const [response, setReponse] = useState()
+  const [response, setResponse] = useState()
   const [activityForm, setActivityForm] = useState({})
   const [modal, setModal] = useState(false);
   const [modalHeading, setModalHeading] = useState('');
@@ -75,6 +76,15 @@ const Activities: React.FC<PropsObject> = () => {
   }, [])
 
 
+  const cloneActivity = async (activity: any) => {
+    const response = await saveActivity(activity);
+    if (response?.status === 201 || response?.status === 200) {
+      let message: any = `Activity ${response?.status === 200 ? 'Updated' : response.message}`
+      setResponse(message)
+      fetchActivites(filters)
+    };
+  }
+
   return (
 
     <>
@@ -85,10 +95,10 @@ const Activities: React.FC<PropsObject> = () => {
         statusOptions={statusOptions}
         closeModal={() => setModal(false)}
         refreshActivities={() => fetchActivites(filters)}
-        setResponse={(message: any) => setReponse(message)}
+        setResponse={(message: any) => setResponse(message)}
       />}
 
-      {response && <Alert response={response} setResponse={(value: any) => setReponse(value)} />}
+      {response && <Alert response={response} setResponse={(value: any) => setResponse(value)} />}
 
       <Header>
         <Button lable="New Activity" icon={AddIcon} onClick={() => {
@@ -105,9 +115,9 @@ const Activities: React.FC<PropsObject> = () => {
           <tbody className='bg-zinc-100 text-zinc-600 font-semibold'>
             <tr>
               <td className='py-3 mb-3 px-4 rounded-tl-full rounded-bl-full'>name</td>
-              <td className='py-3 mb-3 px-4'>Notes</td>
+              <td className='py-3 mb-3 px-4'>notes</td>
               <td className='py-3 mb-3 px-4 text-center'>status</td>
-              <td className='py-3 mb-3 px-4 rounded-tr-full rounded-br-full text-end'>action</td>
+              <td className='py-3 mb-3 px-4 rounded-tr-full rounded-br-full text-center'>action</td>
             </tr>
           </tbody>
           <tbody>
@@ -116,11 +126,16 @@ const Activities: React.FC<PropsObject> = () => {
                 <td className='py-2 px-4 border-b border-dotted'>{activity.name}</td>
                 <td className='py-2 px-4 border-b border-dotted'>{activity.notes}</td>
                 <td className='py-2 px-4 border-b border-dotted text-center'>{activity?.status?.value && <Tag label={activity.status.value} className={activity.status.style} />}</td>
-                <td className='py-2 px-4 border-b border-dotted text-right'> <Action className="p-2" width={30} icon={EditIcon} onClick={() => {
-                  setModalHeading('update activity')
-                  setActivityForm(activity);
-                  setModal(true);
-                }} /></td>
+                <td className='py-2 px-4 border-b border-dotted text-right flex gap-2 justify-center'>
+                  <Action className="p-2" width={30} icon={CopyIcon} onClick={() => {
+                    cloneActivity({ ...activity, id: null })
+                  }} />
+                  <Action className="p-2" width={30} icon={EditIcon} onClick={() => {
+                    setModalHeading('update activity')
+                    setActivityForm(activity);
+                    setModal(true);
+                  }} />
+                </td>
               </tr>
             ))}
           </tbody>
