@@ -9,7 +9,6 @@ import ReactSelect from "@/app/ui/reactSelect";
 import { saveLead } from "./actions";
 import Textarea from '@/app/ui/textarea';
 import Heading from "@/app/ui/heading";
-import Separator from "@/app/ui/separator";
 import { useEffect, useState } from "react";
 
 import { convertFiltersToQuery } from '@/app/functions';

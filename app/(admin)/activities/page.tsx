@@ -4,13 +4,9 @@ import Image from 'next/image';
 
 import Tag from '@ui/tag';
 import Button from "@ui/button";
-import Heading from "@ui/heading";
 
 import AddIcon from "@icons/add.svg";
 import EditIcon from "@icons/edit.svg";
-import RightIcon from "@icons/right.svg";
-
-import defaultUser from '@icons/leads.svg';
 
 import Form from './form';
 import Header from "@ui/header";
@@ -23,7 +19,10 @@ import NoRecord from '@/app/ui/noRecord';
 import Filters from '@/app/ui/filters';
 import { convertFiltersToQuery } from '@/app/functions';
 import Alert from '@/app/ui/alert';
-import { statusTypeOptions } from '@/app/constants';
+import { ACTIVITIES, defaultFilters } from '@/app/constants';
+
+import { getStatusesByType } from '../statuses/actions';
+
 
 interface PropsObject {
 
@@ -39,7 +38,7 @@ const Activities: React.FC<PropsObject> = () => {
   const [activities, setActivities] = useState([]);
   const [activitiesCount, setActivitiesCount] = useState(0);
 
-  const [filters, setFilters] = useState({ query: "", status: "", skip: 0, take: 20 })
+  const [filters, setFilters] = useState(defaultFilters)
 
 
   useEffect(() => {
@@ -67,6 +66,14 @@ const Activities: React.FC<PropsObject> = () => {
 
   }
 
+  const [statusOptions, setStatusOptions] = useState([]);
+
+  useEffect(() => {
+    getStatusesByType(ACTIVITIES).then(result => {
+      if (result) setStatusOptions(result)
+    });
+  }, [])
+
 
   return (
 
@@ -75,6 +82,7 @@ const Activities: React.FC<PropsObject> = () => {
         activityForm={activityForm}
         setActivityForm={(newLead: any) => setActivityForm(newLead)}
         heading={modalHeading}
+        statusOptions={statusOptions}
         closeModal={() => setModal(false)}
         refreshActivities={() => fetchActivites(filters)}
         setResponse={(message: any) => setReponse(message)}
@@ -90,7 +98,7 @@ const Activities: React.FC<PropsObject> = () => {
         }} />
       </Header>
 
-      <Filters filters={filters} setFilters={setFilters} count={activitiesCount} />
+      <Filters filters={filters} setFilters={setFilters} count={activitiesCount} options={statusOptions} />
 
       {activities?.length ?
         <table className="w-full table-auto text-sm text-zinc-500">
@@ -107,7 +115,7 @@ const Activities: React.FC<PropsObject> = () => {
               <tr key={index}>
                 <td className='py-2 px-4 border-b border-dotted'>{activity.name}</td>
                 <td className='py-2 px-4 border-b border-dotted'>{activity.notes}</td>
-                <td className='py-2 px-4 border-b border-dotted text-center'><Tag label={activity.status.value} className={activity.status.style} /></td>
+                <td className='py-2 px-4 border-b border-dotted text-center'>{activity?.status?.value && <Tag label={activity.status.value} className={activity.status.style} />}</td>
                 <td className='py-2 px-4 border-b border-dotted text-right'> <Action className="p-2" width={30} icon={EditIcon} onClick={() => {
                   setModalHeading('update activity')
                   setActivityForm(activity);
