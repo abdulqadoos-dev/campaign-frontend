@@ -8,7 +8,8 @@ import usersIcon from '@icons/users.svg';
 import companyIcon from '@icons/company.svg';
 import dashbaordIcon from '@icons/dashboard.svg';
 import campaignsIcon from '@icons/campaigns.svg';
-
+import Activity from '@icons/activity.svg';
+import Status from '@icons/status.svg';
 
 
 interface Props {
@@ -56,6 +57,12 @@ const breadcrumbs = (heading: string) => {
 
     case "users":
       return { heading, icon: usersIcon }
+
+    case "statuses":
+      return { heading, icon: Status }
+
+    case "activites":
+      return { heading, icon: Activity }
 
     default:
       return { heading, icon: dashbaordIcon }
