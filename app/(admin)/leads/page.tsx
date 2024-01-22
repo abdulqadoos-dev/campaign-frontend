@@ -16,7 +16,7 @@ import Form from './form';
 import Header from "@ui/header";
 
 import { useEffect, useState } from 'react';
-import { searchLeads } from './actions';
+import { saveLead, searchLeads } from './actions';
 
 import Action from '@/app/ui/action';
 import NoRecord from '@/app/ui/noRecord';
@@ -26,6 +26,8 @@ import Alert from '@/app/ui/alert';
 
 import { LEADS, defaultFilters } from '@/app/constants';
 import { getStatusesByType } from '../statuses/actions';
+import CopyIcon from "@icons/copy.svg";
+
 
 interface PropsObject {
 
@@ -33,7 +35,7 @@ interface PropsObject {
 
 const Leads: React.FC<PropsObject> = () => {
 
-  const [response, setReponse] = useState()
+  const [response, setResponse] = useState()
   const [leadForm, setLeadForm] = useState({})
   const [leadModal, setLeadModal] = useState(false);
   const [modalHeading, setModalHeading] = useState('');
@@ -78,6 +80,15 @@ const Leads: React.FC<PropsObject> = () => {
 
   }
 
+  const cloneLead = async (lead: any) => {
+    const response = await saveLead(lead);
+    if (response?.status === 201 || response?.status === 200) {
+      let message: any = `Lead ${response?.status === 200 ? 'Updated' : response.message}`
+      setResponse(message)
+      fetchLeads(filters)
+    };
+  }
+
 
   return (
 
@@ -89,10 +100,10 @@ const Leads: React.FC<PropsObject> = () => {
         heading={modalHeading}
         closeModal={() => setLeadModal(false)}
         refreshLeads={() => fetchLeads(filters)}
-        setResponse={(message: any) => setReponse(message)}
+        setResponse={(message: any) => setResponse(message)}
       />}
 
-      {response && <Alert response={response} setResponse={(value: any) => setReponse(value)} />}
+      {response && <Alert response={response} setResponse={(value: any) => setResponse(value)} />}
 
       <Header>
         <Button lable="New Lead" icon={AddIcon} onClick={() => {
@@ -119,7 +130,7 @@ const Leads: React.FC<PropsObject> = () => {
 
 
           <div className="flex flex-col gap-1 col-span-3 overflow-clip">
-            <div className="text-xs text-zinc-700 font-bold">{lead?.designation} {lead?.company &&  <span className='text-blue-400'> {lead.company.name}</span>}   </div>
+            <div className="text-xs text-zinc-700 font-bold">{lead?.designation} {lead?.company && <span> at {lead.company.name}</span>}   </div>
             <div className="text-xs text-lime-500">{lead?.address}</div>
             {lead.notes && <p className="text-xs text-zinc-500">{lead.notes.substr(0, 40)}</p>}
           </div>
@@ -129,9 +140,10 @@ const Leads: React.FC<PropsObject> = () => {
             {lead.status && <Tag label={lead.status.value} className={lead.status.style} />}
           </div>
 
-          <div className="flex justify-end items-center gap-3 col-span-2 ">
+          <div className="flex justify-end items-center gap-2 col-span-2 ">
             {lead.url && <a href={lead.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>}
-            <Action className="p-2" height={40} width={36} icon={EditIcon} onClick={() => {
+            <Action className="p-2" width={36} icon={CopyIcon} onClick={() => { cloneLead({ ...lead, id: null }) }} />
+            <Action className="p-2" width={36} icon={EditIcon} onClick={() => {
               setModalHeading('update lead')
               setLeadForm(lead);
               setLeadModal(true);

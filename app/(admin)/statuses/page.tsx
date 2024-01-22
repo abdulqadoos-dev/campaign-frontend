@@ -104,7 +104,7 @@ const Statuses: React.FC<PropsObject> = () => {
               <td className='py-3 mb-3 px-4 rounded-tl-full rounded-bl-full'>type</td>
               <td className='py-3 mb-3 px-4'>style</td>
               <td className='py-3 mb-3 px-4 text-center'>status</td>
-              <td className='py-3 mb-3 px-4 rounded-tr-full rounded-br-full text-end'>action</td>
+              <td className='py-3 mb-3 px-4 rounded-tr-full rounded-br-full text-center'>action</td>
             </tr>
           </tbody>
           <tbody>
@@ -113,7 +113,7 @@ const Statuses: React.FC<PropsObject> = () => {
                 <td className='py-2 px-4 border-b border-dotted'>{status.type}</td>
                 <td className='py-2 px-4 border-b border-dotted '>{status.style}</td>
                 <td className='py-2 px-4 border-b border-dotted text-center'><Tag label={status.value} className={status.style} /></td>
-                <td className='py-2 px-4 border-b border-dotted text-right'>
+                <td className='py-2 px-4 border-b border-dotted flex gap-2 justify-center'>
                   <Action className="p-2" width={30} icon={CopyIcon} onClick={() => {
                     cloneStatus({ ...status, id: null })
                   }} />

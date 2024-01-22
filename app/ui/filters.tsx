@@ -33,7 +33,7 @@ const Filters: React.FC<Props> = ({ filters, setFilters, count, options }) => {
       {options && <div className="w-40">
         <ReactSelect
           placeholder={'status'}
-          options={[{ id: null, label: "all", value: "" }, ...options,]}
+          options={options.length && [{ id: null, label: "all", value: "" }, ...options]}
           onChange={(value: any) => {
             let newFilters = { ...filters, status: value, skip: 0 }
             setFilters(newFilters)

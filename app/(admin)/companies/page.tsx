@@ -22,7 +22,7 @@ import Form from './form';
 import { convertFiltersToQuery } from '@/app/functions';
 import { searchCompanies } from '@/app/(admin)/companies/actions';
 
-import { COMPANIES, JSON_PARSE, defaultFilters } from '@/app/constants';
+import { COMPANIES, defaultFilters } from '@/app/constants';
 import { getStatusesByType } from '../statuses/actions';
 
 interface PropsObject {
