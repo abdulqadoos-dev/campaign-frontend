@@ -1,5 +1,4 @@
 import Input from '@/app/ui/input';
-import Select from '@/app/ui/select';
 import Action from '@/app/ui/action';
 import leftIcon from '@icons/chevron-left.svg';
 import rightIcon from '@icons/chevron-right.svg';
