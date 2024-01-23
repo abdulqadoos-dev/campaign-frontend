@@ -97,15 +97,17 @@ const Companies: React.FC<PropsObject> = () => {
 
       <Filters filters={filters} setFilters={setFilters} count={companiesCount} options={statusOptions} />
 
-      {companies?.length ? companies.map((company: any, index: number) => (
-        <div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
+      {companies?.length ? companies.map((company: any, index: number) => {
+
+        return (<div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
 
           <div className="cursor-pointer col-span-2">
             <div className="flex gap-3 p-3 items-center">
               <Image src={companyIcon} alt='user image' className="rounded-2xl bg-zinc-100 p-3" width={50} height={50} />
               <div>
                 <Heading label={`${company.name}`} className={"text-sm"} />
-                <div className="text-xs text-lime-500">{company?.hiringFrom && JSON.parse(company.hiringFrom).value}</div>
+                <div className="text-xs text-lime-500">{company.hiringFrom &&  
+                JSON.parse(company.hiringFrom).length ? JSON.parse(company.hiringFrom).map((hiringFrom:any) => " " +hiringFrom.value) : JSON.parse(company.hiringFrom).value}</div>
                 <div className="text-xs text-zinc-500">{company?.email}</div>
               </div>
             </div>
@@ -130,8 +132,8 @@ const Companies: React.FC<PropsObject> = () => {
           </div>
 
 
-        </div>
-      )) :
+        </div>)
+      }) :
         <NoRecord label="companies" />
       }
 

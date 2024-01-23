@@ -9,6 +9,7 @@ import { saveCompany } from "./actions";
 
 import Textarea from '@/app/ui/textarea';
 import ReactSelect from "@/app/ui/reactSelect";
+import ReactMultiSelect from "@/app/ui/reactMultiSelect";
 import { hirringOptions } from "@/app/constants";
 
 interface Props {
@@ -74,18 +75,25 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
           onChange={(e: any) => setCompanyForm({ ...companyForm, address: e.target.value })}
         />
 
-        <ReactSelect
+        {/* <ReactSelect
           label="hirring from"
           onChange={(value: any) => setCompanyForm({ ...companyForm, hiringFrom: JSON.stringify(value) })}
           defaultValue={companyForm?.hiringFrom && JSON.parse(companyForm.hiringFrom)}
           options={hirringOptions}
+        /> */}
+
+        <ReactMultiSelect
+          label="hirring from"
+          onChange={(value: any) => setCompanyForm({ ...companyForm, hiringFrom: JSON.stringify(value) })}
+          defaultValues={companyForm?.hiringFrom && JSON.parse(companyForm.hiringFrom)}
+          options={hirringOptions}
         />
 
 
-        <ReactSelect
+        <ReactMultiSelect
           label="status"
           onChange={(value: any) => setCompanyForm({ ...companyForm, status: value })}
-          defaultValue={companyForm?.status}
+          defaultValues={companyForm?.status}
           options={statusOptions}
         />
 

@@ -4,12 +4,9 @@ export const LEADS = "leads";
 export const ACTIVITIES = "activities";
 export const COMPANIES = "companies";
 
-export const JSON_PARSE = "parse";
-export const JSON_STRINGIFY = "stringify";
-
-
 
 export const hirringOptions = [
+  { label: "not confirm", value: "" },
   { label: "remote", value: "remote" },
   { label: "anyware", value: "anyware" },
   { label: "hybraid", value: "hybraid" },

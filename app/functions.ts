@@ -1,4 +1,3 @@
-import { JSON_PARSE, JSON_STRINGIFY } from "./constants"
 
 export const convertFiltersToQuery = (newFilters: any) => {
 
@@ -36,15 +35,44 @@ export const convertFiltersToQuery = (newFilters: any) => {
 
 }
 
-export const convertJSON = (data: any, conversion: any) => {
 
-  switch (conversion) {
-    case JSON_PARSE:
-      return JSON.parse(data);
-    case JSON_STRINGIFY:
-      return JSON.stringify(data);
-    default:
-      return []
-  }
+export const reactSelectCustomStyle = {
+  control: (provided: any) => ({
+    ...provided,
+    fontSize: '14px',
+    border: 0,
+    outline: 'none',
+    boxShadow: 'none',
+    padding: "0 15px",
+    borderRadius: '50px',
+    backgroundColor: '#F4F4F5',
+  }),
 
-}
+  valueContainer: (provided: any) => ({
+    ...provided,
+    outline: "none",
+    padding: '0px',
+  }),
+
+  option: (provided: any, state: any) => ({
+    ...provided,
+    padding: "2px 15px",
+    fontSize: '14px',
+    margin: "3px 0",
+    backgroundColor: state.isSelected ? '#EBFCCB' : 'transparent',
+    color: state.isSelected ? '#84CC17' : '#27272A',
+    borderRadius: '20px',
+    '&:hover': {
+      color: "#27272A",
+      backgroundColor: '#F4F4F5',
+    },
+  }),
+
+  menu: (provided: any) => ({
+    ...provided,
+    padding: '5px',
+    borderRadius: '20px',
+    backgroundColor: '#FAFAFA',
+    boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px'
+  }),
+};
