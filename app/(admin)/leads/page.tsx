@@ -137,7 +137,7 @@ const Leads: React.FC<PropsObject> = () => {
 
 
           <div className="grid gap-1 items-center my-1">
-            {lead?.statuses?.length ? lead.statuses.map((status: any) => <Tag label={status.value} className={status.style} />) : <></>}
+            {lead?.statuses?.length ? lead.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.style} />) : <></>}
           </div>
 
           <div className="flex justify-end items-center gap-2 col-span-2 ">

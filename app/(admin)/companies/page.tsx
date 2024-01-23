@@ -117,11 +117,11 @@ const Companies: React.FC<PropsObject> = () => {
             <div className="text-xs text-zinc-800 font-bold">{company?.type} {company.address && ` -  ${company.address}`}  </div>
             <div className="text-xs text-lime-500">{company?.employees}</div>
             {company.notes && <p className="text-xs text-zinc-500">{company.notes.substr(0, 40)}</p>}
-            {company.leads.length ? <p className="text-xs text-zinc-500 font-bold"> LEADS COUNT <span className='text-zinc-800'>{company.leads.length}</span></p>: <></>}
+            {company.leads.length ? <p className="text-xs text-zinc-500 font-bold"> LEADS COUNT <span className='text-zinc-800'>{company.leads.length}</span></p> : <></>}
           </div>
 
           <div className="grid gap-1 items-center">
-            {company?.statuses?.length ? company.statuses.map((status: any) => <Tag label={status.value} className={status.style} />) : <></>}
+            {company?.statuses?.length ? company.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.style} />) : <></>}
           </div>
 
           <div className="flex justify-end items-center gap-3 col-span-2  ">
