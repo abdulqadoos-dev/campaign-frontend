@@ -106,8 +106,8 @@ const Companies: React.FC<PropsObject> = () => {
               <Image src={companyIcon} alt='user image' className="rounded-2xl bg-zinc-100 p-3" width={50} height={50} />
               <div>
                 <Heading label={`${company.name}`} className={"text-sm"} />
-                <div className="text-xs text-lime-500">{company.hiringFrom &&  
-                JSON.parse(company.hiringFrom).length ? JSON.parse(company.hiringFrom).map((hiringFrom:any) => " " +hiringFrom.value) : JSON.parse(company.hiringFrom).value}</div>
+                <div className="text-xs text-lime-500">{company.hiringFrom &&
+                  JSON.parse(company.hiringFrom).length ? JSON.parse(company.hiringFrom).map((hiringFrom: any) => " " + hiringFrom.value) : JSON.parse(company.hiringFrom).value}</div>
                 <div className="text-xs text-zinc-500">{company?.email}</div>
               </div>
             </div>
