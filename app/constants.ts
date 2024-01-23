@@ -6,7 +6,6 @@ export const COMPANIES = "companies";
 
 
 export const hirringOptions = [
-  { label: "not confirm", value: "" },
   { label: "remote", value: "remote" },
   { label: "anyware", value: "anyware" },
   { label: "hybraid", value: "hybraid" },

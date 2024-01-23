@@ -101,28 +101,29 @@ const Companies: React.FC<PropsObject> = () => {
 
         return (<div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
 
-          <div className="cursor-pointer col-span-2">
+          <div className="cursor-pointer col-span-2 ">
             <div className="flex gap-3 p-3 items-center">
               <Image src={companyIcon} alt='user image' className="rounded-2xl bg-zinc-100 p-3" width={50} height={50} />
               <div>
                 <Heading label={`${company.name}`} className={"text-sm"} />
                 <div className="text-xs text-lime-500">{company.hiringFrom &&
-                  JSON.parse(company.hiringFrom).length ? JSON.parse(company.hiringFrom).map((hiringFrom: any) => " " + hiringFrom.value) : JSON.parse(company.hiringFrom).value}</div>
+                  JSON.parse(company.hiringFrom).length ? JSON.parse(company.hiringFrom).map((hiringFrom: any) => " " + hiringFrom.value) : JSON.parse(company.hiringFrom)?.value}</div>
                 <div className="text-xs text-zinc-500">{company?.email}</div>
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-1 col-span-2 overflow-clip">
+
+          <div className="flex flex-col gap-1 col-span-2 overflow-clip ">
             <div className="text-xs text-zinc-800 font-bold">{company?.type} {company.address && ` -  ${company.address}`}  </div>
-            <div className="text-xs text-lime-500">{company?.employees} employees</div>
+            <div className="text-xs text-lime-500">{company?.employees}</div>
             {company.notes && <p className="text-xs text-zinc-500">{company.notes.substr(0, 40)}</p>}
           </div>
 
-          <div className="flex justify-center ">
-            {company.status && <Tag label={company.status.value} className={company.status.style} />}
+          <div className="grid gap-1 items-center my-1">
+            {company?.statuses?.length ? company.statuses.map((status: any) => <Tag label={status.value} className={status.style} />) : <></>}
           </div>
 
-          <div className="flex justify-end items-center gap-3 col-span-2 ">
+          <div className="flex justify-end items-center gap-3 col-span-2  ">
             {company.url && <a href={company.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>}
             <Action className="p-2" height={40} width={36} icon={EditIcon} onClick={() => {
               setModalHeading('update company')
@@ -130,7 +131,6 @@ const Companies: React.FC<PropsObject> = () => {
               setCompanyModal(true);
             }} />
           </div>
-
 
         </div>)
       }) :

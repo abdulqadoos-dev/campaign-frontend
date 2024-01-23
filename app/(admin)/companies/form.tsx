@@ -26,7 +26,7 @@ interface Props {
     phone?: string,
     email?: string,
     url?: string,
-    status?: string,
+    statuses?: any,
     notes?: string,
     type?: string,
     address?: string,
@@ -91,9 +91,9 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
 
 
         <ReactMultiSelect
-          label="status"
-          onChange={(value: any) => setCompanyForm({ ...companyForm, status: value })}
-          defaultValues={companyForm?.status}
+          label="statuses"
+          onChange={(value: any) => setCompanyForm({ ...companyForm, statuses: value })}
+          defaultValues={companyForm?.statuses}
           options={statusOptions}
         />
 

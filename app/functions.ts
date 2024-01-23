@@ -13,7 +13,7 @@ export const convertFiltersToQuery = (newFilters: any) => {
     return {
       ...defaultFilters,
       query: newFilters.query,
-      status: newFilters.status,
+      statuses: newFilters.status,
     }
   }
 
@@ -27,7 +27,7 @@ export const convertFiltersToQuery = (newFilters: any) => {
   if (newFilters.status && newFilters.status.value) {
     return {
       ...defaultFilters,
-      where: { status: { value: newFilters.status.value } },
+      where: { statuses: { value: newFilters.status.value } },
     }
   }
 
