@@ -74,14 +74,7 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
         <Input type="text" label="address" name="address" value={companyForm?.address}
           onChange={(e: any) => setCompanyForm({ ...companyForm, address: e.target.value })}
         />
-
-        {/* <ReactSelect
-          label="hirring from"
-          onChange={(value: any) => setCompanyForm({ ...companyForm, hiringFrom: JSON.stringify(value) })}
-          defaultValue={companyForm?.hiringFrom && JSON.parse(companyForm.hiringFrom)}
-          options={hirringOptions}
-        /> */}
-
+        
         <ReactMultiSelect
           label="hirring from"
           onChange={(value: any) => setCompanyForm({ ...companyForm, hiringFrom: JSON.stringify(value) })}

@@ -5,6 +5,7 @@ import Input from "@ui/input";
 import Button from "@ui/button";
 
 import ReactSelect from "@/app/ui/reactSelect";
+import ReactMultiSelect from "@/app/ui/reactMultiSelect";
 
 import { saveLead } from "./actions";
 import Textarea from '@/app/ui/textarea';
@@ -30,7 +31,7 @@ interface Props {
     lastName?: string,
     email?: string,
     url?: string,
-    status?: string,
+    statuses?: string,
     notes?: string,
     address?: string,
     designation?: string,
@@ -115,10 +116,10 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
 
         <Heading label="additional" className="text-sm mx-2 my-5 " />
 
-        <ReactSelect
-          label="status"
-          onChange={(value: any) => setLeadForm({ ...leadForm, status: value })}
-          defaultValue={leadForm?.status}
+        <ReactMultiSelect
+          label="statuses"
+          onChange={(value: any) => setLeadForm({ ...leadForm, statuses: value })}
+          defaultValues={leadForm?.statuses}
           options={statusOptions}
         />
 
