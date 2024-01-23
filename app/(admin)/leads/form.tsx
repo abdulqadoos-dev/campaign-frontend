@@ -107,7 +107,7 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
           onInputChange={(value: any) => setFilters({ ...filters, query: value })}
           onChange={(value: any) => setLeadForm({ ...leadForm, company: value })}
           defaultValue={leadForm?.company && { id: leadForm.company.id, label: leadForm.company.name, value: leadForm.company.name }}
-          options={companies}
+          options={[{ id: null, label: "no company", value: "" }, ...companies]}
         />
 
         <Input type="text" label="address" name="address" value={leadForm?.address}

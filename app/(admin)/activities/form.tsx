@@ -6,7 +6,7 @@ import Button from "@ui/button";
 import { saveActivity } from "./actions";
 import Textarea from '@/app/ui/textarea';
 
-import ReactSelect from '@/app/ui/reactSelect';
+import ReactMultiSelect from "@/app/ui/reactMultiSelect";
 
 interface Props {
 
@@ -20,7 +20,7 @@ interface Props {
     id?: number,
     name?: string,
     notes?: string,
-    status?: {},
+    statuses?: {},
   }
 }
 
@@ -51,10 +51,12 @@ const Form: React.FC<Props> = ({ heading, activityForm, setActivityForm, closeMo
           onChange={(e: any) => setActivityForm({ ...activityForm, notes: e.target.value })}
         />
 
-        <ReactSelect
-          label="status"
-          onChange={(value: any) => setActivityForm({ ...activityForm, status: value })}
-          defaultValue={activityForm?.status}
+
+
+        <ReactMultiSelect
+          label="statuses"
+          onChange={(value: any) => setActivityForm({ ...activityForm, statuses: value })}
+          defaultValues={activityForm?.statuses}
           options={statusOptions}
         />
 

@@ -99,7 +99,7 @@ const Companies: React.FC<PropsObject> = () => {
 
       {companies?.length ? companies.map((company: any, index: number) => {
 
-        return (<div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
+        return (<div key={index} className="grid grid-cols-7 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 py-1 rounded-large">
 
           <div className="cursor-pointer col-span-2 ">
             <div className="flex gap-3 p-3 items-center">
@@ -117,9 +117,10 @@ const Companies: React.FC<PropsObject> = () => {
             <div className="text-xs text-zinc-800 font-bold">{company?.type} {company.address && ` -  ${company.address}`}  </div>
             <div className="text-xs text-lime-500">{company?.employees}</div>
             {company.notes && <p className="text-xs text-zinc-500">{company.notes.substr(0, 40)}</p>}
+            {company.leads.length ? <p className="text-xs text-zinc-500 font-bold"> LEADS COUNT <span className='text-zinc-800'>{company.leads.length}</span></p>: <></>}
           </div>
 
-          <div className="grid gap-1 items-center my-1">
+          <div className="grid gap-1 items-center">
             {company?.statuses?.length ? company.statuses.map((status: any) => <Tag label={status.value} className={status.style} />) : <></>}
           </div>
 

@@ -125,7 +125,11 @@ const Activities: React.FC<PropsObject> = () => {
               <tr key={index}>
                 <td className='py-2 px-4 border-b border-dotted'>{activity.name}</td>
                 <td className='py-2 px-4 border-b border-dotted'>{activity.notes}</td>
-                <td className='py-2 px-4 border-b border-dotted text-center'>{activity?.status?.value && <Tag label={activity.status.value} className={activity.status.style} />}</td>
+                <td className='py-2 px-4 border-b border-dotted text-center'>
+                  <div className="flex gap-1 items-center justify-center my-1">
+                    {activity?.statuses?.length ? activity.statuses.map((status: any) => <Tag label={status.value} className={status.style} />) : <></>}
+                  </div>
+                </td>
                 <td className='py-2 px-4 border-b border-dotted text-right flex gap-2 justify-center'>
                   <Action className="p-2" width={30} icon={CopyIcon} onClick={() => {
                     cloneActivity({ ...activity, id: null })
