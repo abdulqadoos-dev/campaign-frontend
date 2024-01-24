@@ -116,7 +116,7 @@ const Leads: React.FC<PropsObject> = () => {
       <Filters filters={filters} setFilters={setFilters} count={leadsCount} options={statusOptions} />
 
       {leads?.length ? leads.map((lead: any, index: number) => (
-        <div key={index} className="grid grid-cols-9 gap-4 my-2 items-center bg-zinc-50 pl-1 pr-5 rounded-large">
+        <div key={index} className="grid grid-cols-10 gap-4 my-6 items-center bg-zinc-50 hover:bg-zinc-100 pl-1 pr-5 py-1 rounded-large relative">
 
           <div className="cursor-pointer col-span-3">
             <div className="flex gap-3 p-3 items-center">
@@ -132,13 +132,13 @@ const Leads: React.FC<PropsObject> = () => {
           <div className="flex flex-col gap-1 col-span-3 overflow-clip">
             <div className="text-xs text-zinc-700 font-bold">{lead?.designation} {lead?.company && <span> at {lead.company.name}</span>}   </div>
             <div className="text-xs text-lime-500">{lead?.address}</div>
-            {lead.notes && <p className="text-xs text-zinc-500">{lead.notes.substr(0, 40)}</p>}
           </div>
 
-
-          <div className="grid gap-1 items-center my-1">
+          <div className="flex justify-end gap-1 absolute w-full top-[-10px] px-5">
             {lead?.statuses?.length ? lead.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.style} />) : <></>}
           </div>
+
+          <p className="text-xs py-4 col-span-2 text-zinc-600">{lead.notes && lead.notes.substr(0, 200)}</p>
 
           <div className="flex justify-end items-center gap-2 col-span-2 ">
             {lead.url && <a href={lead.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>}
