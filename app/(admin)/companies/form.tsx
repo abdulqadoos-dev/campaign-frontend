@@ -6,6 +6,7 @@ import Input from "@ui/input";
 import Button from "@ui/button";
 
 import { saveCompany } from "./actions";
+import Heading from "@/app/ui/heading";
 
 import Textarea from '@/app/ui/textarea';
 import ReactSelect from "@/app/ui/reactSelect";
@@ -32,7 +33,7 @@ interface Props {
     address?: string,
     hiringFrom?: string,
     employees?: string,
-    imageUrl?:string
+    imageUrl?: string
 
   }
 }
@@ -103,6 +104,14 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
           onChange={(e: any) => convertToData(e.target.value)}
         />) : <></>}
 
+        <Input type="text" label="email" name="email" value={companyForm?.email}
+          onChange={(e: any) => setCompanyForm({ ...companyForm, email: e.target.value })}
+        />
+        <Input type="url" label="url" name="url" value={companyForm?.url}
+          onChange={(e: any) => setCompanyForm({ ...companyForm, url: e.target.value })}
+        />
+
+        <Heading label="Auto Generated" className="text-sm mx-2 my-5 " />
 
         <Input type="text" label="Name" name="name" value={companyForm?.name}
           onChange={(e: any) => setCompanyForm({ ...companyForm, name: e.target.value })}
@@ -112,12 +121,6 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
         />
         <Input type="text" label="no of employees" name="employees" value={companyForm?.employees}
           onChange={(e: any) => setCompanyForm({ ...companyForm, employees: e.target.value })}
-        />
-        <Input type="text" label="email" name="email" value={companyForm?.email}
-          onChange={(e: any) => setCompanyForm({ ...companyForm, email: e.target.value })}
-        />
-        <Input type="url" label="url" name="url" value={companyForm?.url}
-          onChange={(e: any) => setCompanyForm({ ...companyForm, url: e.target.value })}
         />
 
         <Input type="url" label="image url" name="imageUrl" value={companyForm?.imageUrl}
@@ -134,7 +137,6 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
           defaultValues={companyForm?.hiringFrom && JSON.parse(companyForm.hiringFrom)}
           options={hirringOptions}
         />
-
 
         <ReactMultiSelect
           label="statuses"

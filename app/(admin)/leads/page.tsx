@@ -117,7 +117,7 @@ const Leads: React.FC<PropsObject> = () => {
       <Filters filters={filters} setFilters={setFilters} count={leadsCount} options={statusOptions} />
 
       {leads?.length ? leads.map((lead: any, index: number) => (
-        <div key={index} className="grid grid-cols-10 gap-4 my-6 items-center bg-zinc-50 hover:bg-zinc-100 pl-1 pr-5 py-1 rounded-large relative">
+        <div key={index} className="grid grid-cols-10 gap-4 my-6 items-center bg-zinc-50 pl-1 pr-5 py-1 rounded-large relative">
 
           <div className="cursor-pointer col-span-3">
             <div className="flex gap-3 p-3 items-center">

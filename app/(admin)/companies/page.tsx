@@ -101,7 +101,7 @@ const Companies: React.FC<PropsObject> = () => {
 
       {companies?.length ? companies.map((company: any, index: number) => {
 
-        return (<div key={index} className="grid grid-cols-8 gap-4 my-6 items-center bg-zinc-50 hover:bg-zinc-100 pl-1 pr-5 py-1 rounded-large relative">
+        return (<div key={index} className="grid grid-cols-8 gap-4 my-6 items-center bg-zinc-50  pl-1 pr-5 py-1 rounded-large relative">
 
           <div className="cursor-pointer col-span-2 ">
             <div className="flex gap-3 p-3 items-center">
