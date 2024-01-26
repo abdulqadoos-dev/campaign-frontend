@@ -125,6 +125,15 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
         />) : <></>}
 
 
+        <Input type="text" label="email" name="email" value={leadForm?.email}
+          onChange={(e: any) => setLeadForm({ ...leadForm, email: e.target.value })}
+        />
+
+        <Input type="url" label=" link" name="url" value={leadForm?.url}
+          onChange={(e: any) => setLeadForm({ ...leadForm, url: e.target.value })}
+        />
+
+
         <div className="flex gap-4 my-[-10px] ">
           <Input type="text" label="first Name" name="firstName" className="w-full" value={leadForm?.firstName}
             onChange={(e: any) => setLeadForm({ ...leadForm, firstName: e.target.value })}
@@ -134,18 +143,12 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
           />
         </div>
 
-        <Input type="text" label="email" name="email" value={leadForm?.email}
-          onChange={(e: any) => setLeadForm({ ...leadForm, email: e.target.value })}
-        />
+
 
         <Input type="url" label="image url" name="imageUrl" value={leadForm?.imageUrl}
           onChange={(e: any) => setLeadForm({ ...leadForm, imageUrl: e.target.value })}
         />
 
-
-        <Input type="url" label="profile link" name="url" value={leadForm?.url}
-          onChange={(e: any) => setLeadForm({ ...leadForm, url: e.target.value })}
-        />
 
         <Heading label="Company" className="text-sm mx-2 my-5 " />
 
