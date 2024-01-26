@@ -25,6 +25,8 @@ import { searchCompanies } from '@/app/(admin)/companies/actions';
 import { COMPANIES, defaultFilters } from '@/app/constants';
 import { getStatusesByType } from '../statuses/actions';
 
+import moment from 'moment';
+
 interface PropsObject {
 
 }
@@ -103,7 +105,7 @@ const Companies: React.FC<PropsObject> = () => {
 
           <div className="cursor-pointer col-span-2 ">
             <div className="flex gap-3 p-3 items-center">
-              <Image src={companyIcon} alt='user image' className="rounded-2xl bg-zinc-100 p-3" width={50} height={50} />
+              <Image src={company?.imageUrl ?? companyIcon} alt='user image' className={`rounded-full bg-zinc-100 ${company?.imageUrl ? "" : "p-3"}  `} width={50} height={50} />
               <div>
                 <Heading label={`${company.name}`} className={"text-sm"} />
                 <div className="text-xs text-zinc-500">{company?.email}</div>
@@ -118,6 +120,8 @@ const Companies: React.FC<PropsObject> = () => {
           </div>
 
           <div className="flex justify-end gap-1 absolute w-full top-[-10px] px-5">
+          {moment(company.createdAt).startOf('day').isSame(moment().startOf('day')) && <Tag key={0.1} label={'new'} className="text-violet-500 bg-violet-100" />}
+
             {company.hiringFrom &&
               JSON.parse(company.hiringFrom).length ? JSON.parse(company.hiringFrom).map((hiringFrom: any) => <Tag key={index} label={hiringFrom.value} className="bg-zinc-200 text-zinc-600" />) : JSON.parse(company.hiringFrom)?.value}
             {company?.statuses?.length ? company.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.style} />) : <></>}

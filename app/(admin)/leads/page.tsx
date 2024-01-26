@@ -28,6 +28,7 @@ import { LEADS, defaultFilters } from '@/app/constants';
 import { getStatusesByType } from '../statuses/actions';
 import CopyIcon from "@icons/copy.svg";
 
+import moment from 'moment';
 
 interface PropsObject {
 
@@ -120,7 +121,7 @@ const Leads: React.FC<PropsObject> = () => {
 
           <div className="cursor-pointer col-span-3">
             <div className="flex gap-3 p-3 items-center">
-              <Image src={defaultUser} alt='user image' className="rounded-full bg-zinc-100 p-3" width={50} height={50} />
+              <Image src={lead?.imageUrl ?? defaultUser} alt='user image' className={`rounded-full bg-zinc-100 ${lead?.imageUrl ? "" : "p-3"}  `} width={50} height={50} />
               <div>
                 <Heading label={`${lead.firstName} ${lead.lastName}`} className={"text-sm"} />
                 <div className="text-xs text-zinc-500">{lead?.email}</div>
@@ -135,6 +136,7 @@ const Leads: React.FC<PropsObject> = () => {
           </div>
 
           <div className="flex justify-end gap-1 absolute w-full top-[-10px] px-5">
+            {moment(lead.createdAt).startOf('day').isSame(moment().startOf('day')) && <Tag key={0.1} label={'new'} className="text-violet-500 bg-violet-100" />}
             {lead?.statuses?.length ? lead.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.style} />) : <></>}
           </div>
 

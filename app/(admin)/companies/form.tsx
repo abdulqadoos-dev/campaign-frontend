@@ -32,9 +32,11 @@ interface Props {
     address?: string,
     hiringFrom?: string,
     employees?: string,
+    imageUrl?:string
 
   }
 }
+
 
 
 const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModal, refreshCompanies, setResponse, statusOptions }) => {
@@ -49,6 +51,45 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
     };
   }
 
+
+  const convertToData = (htmlContent: any) => {
+
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(htmlContent, 'text/html');
+
+    // Extracting information
+    let nameElement: any = doc.querySelector('.org-top-card-summary__title');
+    let name = nameElement ? nameElement.textContent.trim() : '';
+
+    let taglineElement: any = doc.querySelector('.org-top-card-summary__tagline');
+    let tagline = taglineElement ? taglineElement.textContent.trim() : '';
+
+    let typeElement: any = doc.querySelector('.org-top-card-summary-info-list__info-item');
+    let type = typeElement ? typeElement.textContent.trim() : '';
+
+    let locationElement: any = doc.querySelector('.org-top-card-summary-info-list .inline-block .org-top-card-summary-info-list__info-item');
+    let address = locationElement ? locationElement.textContent.trim() : '';
+
+    let followersElement: any = doc.querySelector('.org-top-card-summary-info-list__info-item:nth-child(2)');
+    let followers = followersElement ? followersElement.textContent.trim() : '';
+
+    let employeesElement: any = doc.querySelector('.org-top-card-summary-info-list__info-item:nth-child(3)');
+    let employees = employeesElement ? employeesElement.textContent.trim() : '';
+
+    let logoElement: any = doc.querySelector('.org-top-card-primary-content__logo-container');
+    let imageUrl = logoElement ? logoElement?.querySelector('img')?.getAttribute('src') : '';
+
+    // Displaying the extracted information
+    console.log('Name:', name);
+    console.log('Followers:', followers);
+    console.log('Employees:', employees);
+
+
+    setCompanyForm({ ...companyForm, name, address, imageUrl, type, employees: `${followers} ${employees}` })
+
+  }
+
+
   return (
     <Modal heading={heading} closeModal={closeModal} >
 
@@ -56,6 +97,13 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
       <form action={handleSubmit}>
 
         <input type="hidden" name="id" value={companyForm?.id} />
+
+
+        {!companyForm?.id ? (<Textarea name='html' label='html'
+          onChange={(e: any) => convertToData(e.target.value)}
+        />) : <></>}
+
+
         <Input type="text" label="Name" name="name" value={companyForm?.name}
           onChange={(e: any) => setCompanyForm({ ...companyForm, name: e.target.value })}
         />
@@ -71,10 +119,15 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
         <Input type="url" label="url" name="url" value={companyForm?.url}
           onChange={(e: any) => setCompanyForm({ ...companyForm, url: e.target.value })}
         />
+
+        <Input type="url" label="image url" name="imageUrl" value={companyForm?.imageUrl}
+          onChange={(e: any) => setCompanyForm({ ...companyForm, imageUrl: e.target.value })}
+        />
+
         <Input type="text" label="address" name="address" value={companyForm?.address}
           onChange={(e: any) => setCompanyForm({ ...companyForm, address: e.target.value })}
         />
-        
+
         <ReactMultiSelect
           label="hirring from"
           onChange={(value: any) => setCompanyForm({ ...companyForm, hiringFrom: JSON.stringify(value) })}
