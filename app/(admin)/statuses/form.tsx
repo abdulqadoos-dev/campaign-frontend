@@ -4,10 +4,11 @@ import Modal from "@ui/modal";
 import Input from "@ui/input";
 import Button from "@ui/button";
 import Select from '@ui/select';
+import Textarea from "@/app/ui/textarea";
+
 
 import { saveStatus } from "./actions";
-import { statusTypeOptions } from '@/app/constants';
-
+import { tagColours } from '@/app/constants';
 
 
 interface Props {
@@ -21,8 +22,8 @@ interface Props {
     id?: number,
     label?: string,
     value?: string,
-    style?: string,
-    type?: string,
+    colour?: string,
+    notes?: string,
   }
 }
 
@@ -45,18 +46,26 @@ const Form: React.FC<Props> = ({ heading, statusForm, setStatusForm, closeModal,
       <form action={handleSubmit}>
 
         <input type="hidden" name="id" value={statusForm?.id} />
+
         <Input type="text" label="label" name="label" value={statusForm?.label}
-          onChange={(e: any) => setStatusForm({ ...statusForm, label: e.target.value })}
+          onChange={(e: any) => setStatusForm({ ...statusForm, label: e.target.value, value: e.target.value })}
         />
         <Input type="text" label="value" name="value" value={statusForm?.value}
           onChange={(e: any) => setStatusForm({ ...statusForm, value: e.target.value })}
         />
-        <Input type="text" label="style (bg-red-100 text-red-500)" name="style" value={statusForm?.style}
-          onChange={(e: any) => setStatusForm({ ...statusForm, style: e.target.value })}
+
+        <p className="text-sm text-zinc-800 px-2 py-3">colour</p>
+        <div className="flex gap-2 flex-wrap">
+          {tagColours.map((tagColour, index) =>
+            <span key={index}
+              onClick={() => setStatusForm({ ...statusForm, colour: tagColour })}
+              className={`px-5 py-1 font-semibold text-xs rounded-full ${tagColour} ${statusForm?.colour === tagColour ? "border border-zinc-500 border-dashed" : ""}`}>{statusForm?.label}</span>)}
+        </div>
+
+        <Textarea name='notes' label='notes' value={statusForm?.notes}
+          onChange={(e: any) => setStatusForm({ ...statusForm, notes: e.target.value })}
         />
-        <Select label='type' name='type' options={statusTypeOptions} selected={statusForm?.type}
-          onChange={(e: any) => setStatusForm({ ...statusForm, type: e.target.value })}
-        />
+
         <div className="grid justify-items-stretch">
           <Button lable="save" className="w-32 my-2 justify-self-end" active="true" />
         </div>
