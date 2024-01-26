@@ -1,6 +1,6 @@
 'use server'
 
-import { save } from '@/app/apis'
+import { save, get } from '@/app/apis'
 
 export const saveStatus = async (formData: any) => {
   const response = formData.id ? await save(`/statuses/${+formData.id}`, "PATCH", formData) : await save('/statuses', "POST", formData);
@@ -17,6 +17,11 @@ export const searchStatuses = async (filters: any) => {
 
 
 export const getStatusesByType = async (type: string) => {
-  const response = await save('/statuses/type', "POST", {type});
+  const response = await get('/statuses');
+  return await response.json();
+}
+
+export const getStatuses = async () => {
+  const response = await get('/statuses');
   return await response.json();
 }

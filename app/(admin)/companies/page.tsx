@@ -22,8 +22,8 @@ import Form from './form';
 import { convertFiltersToQuery } from '@/app/functions';
 import { searchCompanies } from '@/app/(admin)/companies/actions';
 
-import { COMPANIES, defaultFilters } from '@/app/constants';
-import { getStatusesByType } from '../statuses/actions';
+import { defaultFilters } from '@/app/constants';
+import { getStatuses } from '../statuses/actions';
 
 import moment from 'moment';
 
@@ -68,7 +68,7 @@ const Companies: React.FC<PropsObject> = () => {
   const [statusOptions, setStatusOptions] = useState([]);
 
   useEffect(() => {
-    getStatusesByType(COMPANIES).then(result => {
+    getStatuses().then(result => {
       if (result) setStatusOptions(result)
     });
   }, [])
@@ -120,11 +120,11 @@ const Companies: React.FC<PropsObject> = () => {
           </div>
 
           <div className="flex justify-end gap-1 absolute w-full top-[-10px] px-5">
-          {moment(company.createdAt).startOf('day').isSame(moment().startOf('day')) && <Tag key={0.1} label={'new'} className="text-violet-500 bg-violet-100" />}
+            {moment(company.createdAt).startOf('day').isSame(moment().startOf('day')) && <Tag key={0.1} label="today's" className="text-violet-500 bg-violet-100" />}
 
             {company.hiringFrom &&
               JSON.parse(company.hiringFrom).length ? JSON.parse(company.hiringFrom).map((hiringFrom: any) => <Tag key={index} label={hiringFrom.value} className="bg-zinc-200 text-zinc-600" />) : JSON.parse(company.hiringFrom)?.value}
-            {company?.statuses?.length ? company.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.style} />) : <></>}
+            {company?.statuses?.length ? company.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.colour} />) : <></>}
           </div>
 
           <p className="text-xs py-4 col-span-2 text-zinc-600">{company.notes && company.notes.substr(0, 200)}</p>

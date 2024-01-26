@@ -24,8 +24,8 @@ import Filters from '@/app/ui/filters';
 import { convertFiltersToQuery } from '@/app/functions';
 import Alert from '@/app/ui/alert';
 
-import { LEADS, defaultFilters } from '@/app/constants';
-import { getStatusesByType } from '../statuses/actions';
+import { defaultFilters } from '@/app/constants';
+import { getStatuses } from '../statuses/actions';
 import CopyIcon from "@icons/copy.svg";
 
 import moment from 'moment';
@@ -55,10 +55,11 @@ const Leads: React.FC<PropsObject> = () => {
   const [statusOptions, setStatusOptions] = useState([]);
 
   useEffect(() => {
-    getStatusesByType(LEADS).then(result => {
+    getStatuses().then(result => {
       if (result) setStatusOptions(result)
     });
   }, [])
+
 
   useEffect(() => {
 
@@ -136,8 +137,8 @@ const Leads: React.FC<PropsObject> = () => {
           </div>
 
           <div className="flex justify-end gap-1 absolute w-full top-[-10px] px-5">
-            {moment(lead.createdAt).startOf('day').isSame(moment().startOf('day')) && <Tag key={0.1} label={'new'} className="text-violet-500 bg-violet-100" />}
-            {lead?.statuses?.length ? lead.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.style} />) : <></>}
+            {moment(lead.createdAt).startOf('day').isSame(moment().startOf('day')) && <Tag key={0.1} label="today's" className="text-violet-500 bg-violet-100" />}
+            {lead?.statuses?.length ? lead.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.colour} />) : <></>}
           </div>
 
           <p className="text-xs py-4 col-span-2 text-zinc-600">{lead.notes && lead.notes.substr(0, 200)}</p>

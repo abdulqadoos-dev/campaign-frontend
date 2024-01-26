@@ -76,3 +76,37 @@ export const reactSelectCustomStyle = {
     boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px'
   }),
 };
+
+
+export const convertToCompanyData = (htmlContent: any, setCompanyForm: any, companyForm: any) => {
+
+  let parser = new DOMParser();
+  let doc = parser.parseFromString(htmlContent, 'text/html');
+
+  // Extracting information
+  let nameElement: any = doc.querySelector('.org-top-card-summary__title');
+  let name = nameElement ? nameElement.textContent.trim() : '';
+
+  let taglineElement: any = doc.querySelector('.org-top-card-summary__tagline');
+  let tagline = taglineElement ? taglineElement.textContent.trim() : '';
+
+  let typeElement: any = doc.querySelector('.org-top-card-summary-info-list__info-item');
+  let type = typeElement ? typeElement.textContent.trim() : '';
+
+  let locationElement: any = doc.querySelector('.org-top-card-summary-info-list .inline-block .org-top-card-summary-info-list__info-item');
+  let address = locationElement ? locationElement.textContent.trim() : '';
+
+  let followersElement: any = doc.querySelector('.org-top-card-summary-info-list__info-item:nth-child(2)');
+  let followers = followersElement ? followersElement.textContent.trim() : '';
+
+  let employeesElement: any = doc.querySelector('.org-top-card-summary-info-list__info-item:nth-child(3)');
+  let employees = employeesElement ? employeesElement.textContent.trim() : '';
+
+  let logoElement: any = doc.querySelector('.org-top-card-primary-content__logo-container');
+  let imageUrl = logoElement ? logoElement?.querySelector('img')?.getAttribute('src') : '';
+
+  // Displaying the extracted information
+
+  setCompanyForm({ ...companyForm, name, address, imageUrl, type, employees: `${followers} ${employees}` })
+
+}

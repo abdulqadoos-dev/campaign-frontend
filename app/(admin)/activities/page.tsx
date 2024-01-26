@@ -20,9 +20,9 @@ import NoRecord from '@/app/ui/noRecord';
 import Filters from '@/app/ui/filters';
 import { convertFiltersToQuery } from '@/app/functions';
 import Alert from '@/app/ui/alert';
-import { ACTIVITIES, defaultFilters } from '@/app/constants';
+import { defaultFilters } from '@/app/constants';
 
-import { getStatusesByType } from '../statuses/actions';
+import { getStatuses } from '../statuses/actions';
 
 
 interface PropsObject {
@@ -70,7 +70,7 @@ const Activities: React.FC<PropsObject> = () => {
   const [statusOptions, setStatusOptions] = useState([]);
 
   useEffect(() => {
-    getStatusesByType(ACTIVITIES).then(result => {
+    getStatuses().then(result => {
       if (result) setStatusOptions(result)
     });
   }, [])

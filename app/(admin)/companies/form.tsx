@@ -12,6 +12,7 @@ import Textarea from '@/app/ui/textarea';
 import ReactSelect from "@/app/ui/reactSelect";
 import ReactMultiSelect from "@/app/ui/reactMultiSelect";
 import { hirringOptions } from "@/app/constants";
+import { convertToCompanyData } from "@/app/functions";
 
 interface Props {
 
@@ -53,44 +54,6 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
   }
 
 
-  const convertToData = (htmlContent: any) => {
-
-    let parser = new DOMParser();
-    let doc = parser.parseFromString(htmlContent, 'text/html');
-
-    // Extracting information
-    let nameElement: any = doc.querySelector('.org-top-card-summary__title');
-    let name = nameElement ? nameElement.textContent.trim() : '';
-
-    let taglineElement: any = doc.querySelector('.org-top-card-summary__tagline');
-    let tagline = taglineElement ? taglineElement.textContent.trim() : '';
-
-    let typeElement: any = doc.querySelector('.org-top-card-summary-info-list__info-item');
-    let type = typeElement ? typeElement.textContent.trim() : '';
-
-    let locationElement: any = doc.querySelector('.org-top-card-summary-info-list .inline-block .org-top-card-summary-info-list__info-item');
-    let address = locationElement ? locationElement.textContent.trim() : '';
-
-    let followersElement: any = doc.querySelector('.org-top-card-summary-info-list__info-item:nth-child(2)');
-    let followers = followersElement ? followersElement.textContent.trim() : '';
-
-    let employeesElement: any = doc.querySelector('.org-top-card-summary-info-list__info-item:nth-child(3)');
-    let employees = employeesElement ? employeesElement.textContent.trim() : '';
-
-    let logoElement: any = doc.querySelector('.org-top-card-primary-content__logo-container');
-    let imageUrl = logoElement ? logoElement?.querySelector('img')?.getAttribute('src') : '';
-
-    // Displaying the extracted information
-    console.log('Name:', name);
-    console.log('Followers:', followers);
-    console.log('Employees:', employees);
-
-
-    setCompanyForm({ ...companyForm, name, address, imageUrl, type, employees: `${followers} ${employees}` })
-
-  }
-
-
   return (
     <Modal heading={heading} closeModal={closeModal} >
 
@@ -101,7 +64,7 @@ const Form: React.FC<Props> = ({ heading, companyForm, setCompanyForm, closeModa
 
 
         {!companyForm?.id ? (<Textarea name='html' label='html'
-          onChange={(e: any) => convertToData(e.target.value)}
+          onChange={(e: any) => convertToCompanyData(e.target.value, setCompanyForm, companyForm)}
         />) : <></>}
 
         <Input type="text" label="email" name="email" value={companyForm?.email}
