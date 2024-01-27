@@ -111,7 +111,7 @@ const Activities: React.FC<PropsObject> = () => {
       <Filters filters={filters} setFilters={setFilters} count={activitiesCount} options={statusOptions} />
 
       {activities?.length ?
-        <table className="w-full table-auto text-sm text-zinc-500">
+        <table className="w-full table-auto text-xs text-zinc-500">
           <tbody className='bg-zinc-100 text-zinc-600 font-semibold'>
             <tr>
               <td className='py-3 mb-3 px-4 rounded-tl-full rounded-bl-full'>name</td>
@@ -127,7 +127,7 @@ const Activities: React.FC<PropsObject> = () => {
                 <td className='py-2 px-4 border-b border-dotted'>{activity.notes}</td>
                 <td className='py-2 px-4 border-b border-dotted text-center'>
                   <div className="flex gap-1 items-center justify-center my-1">
-                    {activity?.statuses?.length ? activity.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.style} />) : <></>}
+                    {activity?.statuses?.length ? activity.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.colour} />) : <></>}
                   </div>
                 </td>
                 <td className='py-2 px-4 border-b border-dotted text-right flex gap-2 justify-center'>

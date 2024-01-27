@@ -14,6 +14,7 @@ import Dashboard from '@icons/dashboard.svg';
 import Campaigns from '@icons/campaigns.svg';
 import Activity from '@icons/activity.svg';
 import Status from '@icons/status.svg';
+import Email from '@icons/email.svg';
 
 import Tag from '@ui/tag';
 import Heading from '@ui/heading';
@@ -57,6 +58,11 @@ const Sidebar: React.FC<{}> = () => {
         <Link href="/companies" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/companies' ? 'bg-lime-400' : ''} `}>
           <Image src={Companies} alt="campaign icon" width={0} height={20} />
           <span> Companies</span>
+        </Link>
+
+        <Link href="/emails" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/emails' ? 'bg-lime-400' : ''} `}>
+          <Image src={Email} alt="campaign icon" width={0} height={20} />
+          <span> Emails</span>
         </Link>
 
         <Link href="/activities" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/activites' ? 'bg-lime-400' : ''} `}>

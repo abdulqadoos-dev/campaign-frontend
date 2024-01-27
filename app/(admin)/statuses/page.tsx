@@ -99,7 +99,7 @@ const Statuses: React.FC<PropsObject> = () => {
       <Filters filters={filters} setFilters={setFilters} count={statusesCount} />
 
       {statuses?.length ?
-        <table className="w-full table-auto text-sm text-zinc-500">
+        <table className="w-full table-auto text-xs text-zinc-500">
           <tbody className='bg-zinc-100 text-zinc-600 font-semibold'>
             <tr>
               <td className='py-3 mb-3 px-4 rounded-tl-full rounded-bl-full'>counts</td>
