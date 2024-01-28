@@ -15,7 +15,7 @@ import defaultUser from '@icons/leads.svg';
 import Form from './form';
 import Header from "@ui/header";
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { saveLead, searchLeads } from './actions';
 
 import Action from '@/app/ui/action';
@@ -52,7 +52,17 @@ const Leads: React.FC<PropsObject> = () => {
   const [leads, setLeads] = useState([]);
   const [leadsCount, setLeadsCount] = useState(0);
   const [filters, setFilters] = useState(defaultFilters)
-  
+
+  const fetchLeads = (newFilters: any) => {
+
+    searchLeads(convertFiltersToQuery(newFilters)).then(result => {
+      if (result?.records) {
+        setLeads(result.records)
+        setLeadsCount(result.total)
+      }
+    });
+
+  }
 
 
   useEffect(() => {
@@ -78,21 +88,15 @@ const Leads: React.FC<PropsObject> = () => {
 
   }, [filters])
 
-  const fetchLeads = (newFilters: any) => {
 
-    searchLeads(convertFiltersToQuery(newFilters)).then(result => {
-      if (result?.records) {
-        setLeads(result.records)
-        setLeadsCount(result.total)
-      }
-    });
 
-  }
+
+
 
   const cloneLead = async (lead: any) => {
     const response = await saveLead(lead);
     if (response?.status === 201 || response?.status === 200) {
-      setAlert({...alert, message: `Lead ${response?.status === 200 ? 'Updated' : response.message}`, isMount: true})
+      setAlert({ ...alert, message: `Lead ${response?.status === 200 ? 'Updated' : response.message}`, isMount: true })
       fetchLeads(filters)
     };
   }
