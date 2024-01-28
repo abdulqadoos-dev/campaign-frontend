@@ -136,7 +136,7 @@ const Leads: React.FC<PropsObject> = () => {
             <div className="text-xs text-zinc-400 font-bold">{lead?.address}</div>
           </div>
 
-          <div className="flex justify-end gap-1 absolute w-full text-xs px-5">
+          <div className="flex justify-end gap-1 absolute w-full top-[-10px] px-5">
             {moment(lead.createdAt).startOf('day').isSame(moment().startOf('day')) && <Tag key={0.1} label="today's" className="text-violet-500 bg-violet-100" />}
             {lead?.statuses?.length ? lead.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.colour} />) : <></>}
           </div>
