@@ -127,7 +127,7 @@ const Companies: React.FC<PropsObject> = () => {
             {company?.statuses?.length ? company.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.colour} />) : <></>}
           </div>
 
-          <div className="absolute bottom-[-5px] flex justify-center w-full text-[10px] ">
+          <div className="absolute bottom-[-5px] flex justify-center w-full text-xs ">
             <span className="text-zinc-500 bg-zinc-100 px-2 rounded-full">{moment(company.createdAt).format('ddd D MMM Y')} {company.leads.length ? ` | Leads Count ${company.leads.length}` : ""}</span>
           </div>
 
