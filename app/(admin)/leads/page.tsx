@@ -156,7 +156,7 @@ const Leads: React.FC<PropsObject> = () => {
             {lead?.statuses?.length ? lead.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.colour} />) : <></>}
           </div>
 
-          <div className="absolute bottom-[-5px] flex justify-center w-full text-xs ">
+          <div className="absolute bottom-[-5px] flex justify-center w-full text-[11px] ">
             <span className="text-zinc-500 bg-zinc-100 px-2 rounded-full">{moment(lead.createdAt).format('ddd D MMM Y')}</span>
           </div>
 

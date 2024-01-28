@@ -7,7 +7,7 @@ export const COMPANIES = "companies";
 
 export const hirringOptions = [
   { label: "remote", value: "remote" },
-  { label: "anyware", value: "anyware" },
+  { label: "any-where", value: "any-where" },
   { label: "hybraid", value: "hybraid" },
   { label: "on-site", value: "on-site" },
   { label: "in-countroy", value: "in-countroy" },
