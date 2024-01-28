@@ -28,13 +28,12 @@ import { defaultFilters } from '@/app/constants';
 import { getStatuses } from '../statuses/actions';
 import CopyIcon from "@icons/copy.svg";
 
-import moment from 'moment';
 
 interface PropsObject {
 
 }
 
-const emails: React.FC<PropsObject> = () => {
+const Emails: React.FC<PropsObject> = () => {
 
   const [alert, setAlert] = useState()
   const [emailForm, setEmailForm] = useState({})
@@ -43,6 +42,7 @@ const emails: React.FC<PropsObject> = () => {
 
   const [emails, setEmails] = useState([]);
   const [emailCounts, setEmailConts] = useState(0);
+  const [statusOptions, setStatusOptions] = useState([]);
 
   const [filters, setFilters] = useState(defaultFilters)
 
@@ -52,7 +52,6 @@ const emails: React.FC<PropsObject> = () => {
   }, [])
 
 
-  const [statusOptions, setStatusOptions] = useState([]);
 
   useEffect(() => {
     getStatuses().then(result => {
@@ -167,4 +166,4 @@ const emails: React.FC<PropsObject> = () => {
 
 }
 
-export default emails;
+export default Emails;
