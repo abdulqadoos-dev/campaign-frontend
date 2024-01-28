@@ -27,8 +27,10 @@ import Alert from '@/app/ui/alert';
 import { defaultFilters } from '@/app/constants';
 import { getStatuses } from '../statuses/actions';
 import CopyIcon from "@icons/copy.svg";
+import EamilIcon from "@icons/email.svg";
 
 import moment from 'moment';
+import ComposeEmail from '@/app/ui/composeEmail';
 
 interface PropsObject {
 
@@ -39,6 +41,7 @@ const Leads: React.FC<PropsObject> = () => {
   const [response, setResponse] = useState()
   const [leadForm, setLeadForm] = useState({})
   const [leadModal, setLeadModal] = useState(false);
+  const [composeEmailModal, setComposeEmailModal] = useState(false);
   const [modalHeading, setModalHeading] = useState('');
 
   const [leads, setLeads] = useState([]);
@@ -105,6 +108,18 @@ const Leads: React.FC<PropsObject> = () => {
         setResponse={(message: any) => setResponse(message)}
       />}
 
+      {composeEmailModal && <ComposeEmail
+        data={{
+          lead: leadForm,
+          heading: modalHeading
+        }}
+        functions={{
+          save: () => console.log('save'),
+          closeModal: () => setComposeEmailModal(false),
+          setAlert: (alertMessage: any) => setResponse(alertMessage)
+        }}
+      />}
+
       {response && <Alert response={response} setResponse={(value: any) => setResponse(value)} />}
 
       <Header>
@@ -137,7 +152,7 @@ const Leads: React.FC<PropsObject> = () => {
           </div>
 
           <div className="flex justify-end gap-1 absolute w-full top-[-10px] px-5">
-            {moment(lead.createdAt).startOf('day').isSame(moment().startOf('day')) && <Tag key={0.1} label="today's" className="text-violet-500 bg-violet-100" />}
+            {moment(lead.createdAt).startOf('day').isSame(moment().startOf('day')) && <Tag label="today's" className="text-violet-500 bg-violet-100" />}
             {lead?.statuses?.length ? lead.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.colour} />) : <></>}
           </div>
 
@@ -147,8 +162,14 @@ const Leads: React.FC<PropsObject> = () => {
 
           <p className="text-xs py-4 col-span-2 text-zinc-600">{lead.notes && lead.notes.substr(0, 200)}</p>
 
-          <div className="flex justify-end items-center gap-2 col-span-2 ">
-            {lead.url && <a href={lead.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>}
+          <div className="flex justify-end items-center gap-1 col-span-2 ">
+            {/* {lead.url && <a href={lead.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>} */}
+            {lead.url && <a href={lead.url} target='_blank'>  <Action className="p-[10px]" width={36} icon={RightIcon} onClick={() => { cloneLead({ ...lead, id: null }) }} /> </a>}
+            <Action className="p-[10px]" width={36} icon={EamilIcon} onClick={() => {
+              setModalHeading('Lead Email')
+              setLeadForm(lead);
+              setComposeEmailModal(true);
+            }} />
             <Action className="p-[10px]" width={36} icon={CopyIcon} onClick={() => { cloneLead({ ...lead, id: null }) }} />
             <Action className="p-[10px]" width={36} icon={EditIcon} onClick={() => {
               setModalHeading('update lead')

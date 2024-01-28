@@ -13,12 +13,13 @@ const Textarea: React.FC<Props> = ({ placeholder, name, label, value, onChange }
     <div className="my-3">
       {label && <label className="text-sm ml-3 text-zinc-800">{label}</label>}
       <textarea
-      rows={5}
+        rows={5}
         name={name}
         onChange={onChange}
         className="w-full bg-zinc-100 border-none rounded-2xl py-2 px-4 text-sm placeholder:text-zinc-400 placeholder:text-sm focus:outline-none"
         placeholder={placeholder}
-      >{value}</textarea>
+        defaultValue={value}
+      ></textarea>
     </div>
   )
 }

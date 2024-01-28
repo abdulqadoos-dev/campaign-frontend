@@ -1,6 +1,6 @@
 'use server'
 
-import { save } from '@/app/apis'
+import { save, get } from '@/app/apis'
 
 
 export const saveEmail = async (formData: any) => {
@@ -14,3 +14,9 @@ export const searchEmails = async (filters: any) => {
   const response = await save('/emails/search', "POST", filters);
   return await response.json();
 }
+
+export const getEmailTemplates = async () => {
+  const response = await get('/emails');
+  return await response.json();
+}
+
