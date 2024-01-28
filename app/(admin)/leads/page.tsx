@@ -36,18 +36,23 @@ interface PropsObject {
 
 }
 
+const initialLeadForm: any = {}
+const initialAlert: any = { message: "", isMount: false }
+const initialLeadModal: any = { heading: "", isMount: false }
+const initialComposeEmailModal: any = { heading: "", isMount: false }
+
 const Leads: React.FC<PropsObject> = () => {
 
-  const [response, setResponse] = useState()
-  const [leadForm, setLeadForm] = useState({})
-  const [leadModal, setLeadModal] = useState(false);
-  const [composeEmailModal, setComposeEmailModal] = useState(false);
-  const [modalHeading, setModalHeading] = useState('');
+
+  const [alert, setAlert] = useState(initialAlert)
+  const [leadForm, setLeadForm] = useState(initialLeadForm)
+  const [leadModal, setLeadModal] = useState(initialLeadModal);
+  const [composeEmailModal, setComposeEmailModal] = useState(initialComposeEmailModal);
 
   const [leads, setLeads] = useState([]);
   const [leadsCount, setLeadsCount] = useState(0);
-
   const [filters, setFilters] = useState(defaultFilters)
+  
 
 
   useEffect(() => {
@@ -69,7 +74,6 @@ const Leads: React.FC<PropsObject> = () => {
     const delay = setTimeout(() => {
       fetchLeads(filters)
     }, 500)
-
     return () => clearTimeout(delay)
 
   }, [filters])
@@ -88,8 +92,7 @@ const Leads: React.FC<PropsObject> = () => {
   const cloneLead = async (lead: any) => {
     const response = await saveLead(lead);
     if (response?.status === 201 || response?.status === 200) {
-      let message: any = `Lead ${response?.status === 200 ? 'Updated' : response.message}`
-      setResponse(message)
+      setAlert({...alert, message: `Lead ${response?.status === 200 ? 'Updated' : response.message}`, isMount: true})
       fetchLeads(filters)
     };
   }
@@ -98,35 +101,40 @@ const Leads: React.FC<PropsObject> = () => {
   return (
 
     <>
-      {leadModal && <Form
-        leadForm={leadForm}
-        statusOptions={statusOptions}
-        setLeadForm={(newLead: any) => setLeadForm(newLead)}
-        heading={modalHeading}
-        closeModal={() => setLeadModal(false)}
-        refreshLeads={() => fetchLeads(filters)}
-        setResponse={(message: any) => setResponse(message)}
+      {leadModal.isMount && <Form
+        data={{
+          alert,
+          leadForm,
+          leadModal,
+          statusOptions
+        }}
+        functions={{
+          fetchLeads: () => fetchLeads(filters),
+          setAlert: (newAlert: any) => setAlert(newAlert),
+          setLeadForm: (newLeadForm: any) => setLeadForm(newLeadForm),
+          setLeadModal: (newLeadModal: any) => setLeadModal(newLeadModal),
+        }}
       />}
 
-      {composeEmailModal && <ComposeEmail
+      {composeEmailModal.isMount && <ComposeEmail
         data={{
-          lead: leadForm,
-          heading: modalHeading
+          alert,
+          leadForm,
+          composeEmailModal,
         }}
         functions={{
           save: () => console.log('save'),
-          closeModal: () => setComposeEmailModal(false),
-          setAlert: (alertMessage: any) => setResponse(alertMessage)
+          setAlert: (newAlert: any) => setAlert(newAlert),
+          setComposeEmailModal: (newComposeEmailModal: any) => setComposeEmailModal(newComposeEmailModal)
         }}
       />}
 
-      {response && <Alert response={response} setResponse={(value: any) => setResponse(value)} />}
+      {alert.isMount && <Alert response={alert.message} setResponse={(value: any) => setAlert({ ...alert, isMount: value })} />}
 
       <Header>
         <Button lable="New Lead" icon={AddIcon} onClick={() => {
-          setModalHeading('create lead')
-          setLeadModal(!leadModal)
-          setLeadForm({});
+          setLeadModal({ ...leadModal, heading: "Create Lead", isMount: true })
+          setLeadForm(initialLeadForm);
         }} />
       </Header>
 
@@ -163,18 +171,15 @@ const Leads: React.FC<PropsObject> = () => {
           <p className="text-xs py-4 col-span-2 text-zinc-600">{lead.notes && lead.notes.substr(0, 200)}</p>
 
           <div className="flex justify-end items-center gap-1 col-span-2 ">
-            {/* {lead.url && <a href={lead.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>} */}
             {lead.url && <a href={lead.url} target='_blank'>  <Action className="p-[10px]" width={36} icon={RightIcon} onClick={() => { cloneLead({ ...lead, id: null }) }} /> </a>}
             <Action className="p-[10px]" width={36} icon={EamilIcon} onClick={() => {
-              setModalHeading('Lead Email')
               setLeadForm(lead);
-              setComposeEmailModal(true);
+              setComposeEmailModal({ ...composeEmailModal, heading: "compose email", isMount: true });
             }} />
             <Action className="p-[10px]" width={36} icon={CopyIcon} onClick={() => { cloneLead({ ...lead, id: null }) }} />
             <Action className="p-[10px]" width={36} icon={EditIcon} onClick={() => {
-              setModalHeading('update lead')
               setLeadForm(lead);
-              setLeadModal(true);
+              setLeadModal({ ...leadModal, heading: "Update Lead", isMount: true });
             }} />
           </div>
 

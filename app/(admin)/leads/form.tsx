@@ -18,31 +18,15 @@ import { searchCompanies } from '@/app/(admin)/companies/actions';
 
 
 interface Props {
-
-  heading: string;
-  closeModal: any;
-  refreshLeads: any;
-  setLeadForm: any;
-  setResponse?: any;
-  statusOptions?: any;
-  leadForm?: {
-    id?: number,
-    firstName?: string,
-    lastName?: string,
-    email?: string,
-    url?: string,
-    statuses?: string,
-    notes?: string,
-    address?: string,
-    designation?: string,
-    company?: any,
-    imageUrl?: any,
-  }
+  data: any;
+  functions: any;
 }
 
 
-const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, refreshLeads, setResponse, statusOptions }) => {
+const Form: React.FC<Props> = ({ data, functions }) => {
 
+  const { alert, leadForm, leadModal, statusOptions } = data;
+  const { setLeadForm, setLeadModal, setAlert, fetchLeads } = functions;
 
   //  todo: companies send to a SelectCompanies component
   const [companies, setCompanies] = useState([]);
@@ -107,14 +91,14 @@ const Form: React.FC<Props> = ({ heading, leadForm, setLeadForm, closeModal, ref
   const handleSubmit = async () => {
     const response = await saveLead(leadForm);
     if (response?.status === 201 || response?.status === 200) {
-      setResponse(`Lead ${response?.status === 200 ? 'Updated' : response.message}`)
-      closeModal();
-      refreshLeads();
+      setAlert({...alert, message: `Lead ${response?.status === 200 ? 'Updated' : response.message}`, isMount: true})
+      setLeadModal({ ...leadModal, isMount: false })
+      fetchLeads();
     };
   }
 
   return (
-    <Modal heading={heading} closeModal={closeModal} >
+    <Modal heading={leadModal.heading} closeModal={() => setLeadModal({ ...leadModal, isMount: false })} >
 
       <form action={handleSubmit}>
 
