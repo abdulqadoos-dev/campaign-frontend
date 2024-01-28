@@ -99,7 +99,7 @@ const Statuses: React.FC<PropsObject> = () => {
       <Filters filters={filters} setFilters={setFilters} count={statusesCount} />
 
       {statuses?.length ?
-        <table className="w-full table-auto text-xs text-zinc-500">
+        <table className="w-full table-auto text-sm text-zinc-500">
           <tbody className='bg-zinc-100 text-zinc-600 font-semibold'>
             <tr>
               <td className='py-3 mb-3 px-4 rounded-tl-full rounded-bl-full'>counts</td>
@@ -111,18 +111,30 @@ const Statuses: React.FC<PropsObject> = () => {
           <tbody>
             {statuses.map((status: any, index: number) => (
               <tr key={index}>
-                <td className='py-2 px-4 border-b border-dotted '>{status.companies.length + status.leads.length + status.activities.length}</td>
-                <td className='py-2 px-4 border-b border-dotted'>{status.notes}</td>
-                <td className='py-2 px-4 border-b border-dotted text-center'><Tag label={status.value} className={status.colour} /></td>
-                <td className='py-2 px-4 border-b border-dotted flex gap-2 justify-center'>
-                  <Action className="p-2" width={30} icon={CopyIcon} onClick={() => {
-                    cloneStatus({ ...status, id: null })
-                  }} />
-                  <Action className="p-2" width={30} icon={EditIcon} onClick={() => {
-                    setModalHeading('update status')
-                    setStatusForm(status);
-                    setStatusModal(true);
-                  }} />
+                <td className='px-4 border-b border-dotted '>{status.companies.length + status.leads.length + status.activities.length}</td>
+                <td className='px-4 border-b border-dotted'>{status.notes}</td>
+
+                {/* statuses */}
+                <td className='px-4 border-b border-dotted text-center'>
+
+                  <div className="flex gap-1 items-center justify-center">
+                    <Tag label={status.value} className={`${status.colour}`} />
+                  </div>
+
+                </td>
+
+                {/* actions */}
+                <td className='px-4 h-10 border-b border-dotted'>
+                  <div className='flex gap-2 justify-center items-center'>
+                    <Action className="p-2" width={30} icon={CopyIcon} onClick={() => {
+                      cloneStatus({ ...status, id: null })
+                    }} />
+                    <Action className="p-2" width={30} icon={EditIcon} onClick={() => {
+                      setModalHeading('update status')
+                      setStatusForm(status);
+                      setStatusModal(true);
+                    }} />
+                  </div>
                 </td>
               </tr>
             ))}

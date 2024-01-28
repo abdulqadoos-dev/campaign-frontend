@@ -64,11 +64,11 @@ const Sidebar: React.FC<{}> = () => {
           <Image src={Email} alt="campaign icon" width={0} height={20} />
           <span> Emails</span>
         </Link>
-
+{/* 
         <Link href="/activities" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/activites' ? 'bg-lime-400' : ''} `}>
           <Image src={Activity} alt="campaign icon" width={0} height={20} />
           <span> Activities</span>
-        </Link>
+        </Link> */}
 
         <Link href="/statuses" className={`flex gap-2 text-sm items-center py-2 px-3 rounded-full  hover:bg-lime-400 ${pathname === '/statuses' ? 'bg-lime-400' : ''} `}>
           <Image src={Status} alt="campaign icon" width={0} height={20} />

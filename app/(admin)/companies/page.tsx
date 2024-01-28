@@ -114,9 +114,9 @@ const Companies: React.FC<PropsObject> = () => {
           </div>
 
           <div className="flex flex-col gap-1 col-span-2 overflow-clip ">
-            <div className="text-xs text-zinc-800 font-bold">{company?.type} {company.address && ` -  ${company.address}`}  </div>
+            <div className="text-xs text-zinc-800 font-bold">{company?.type} <br />  {company.address && <span className='text-zinc-400'>{company.address}</span>}  </div>
             <div className="text-xs text-lime-500">{company?.employees}</div>
-            {company.leads.length ? <p className="text-xs text-zinc-500 font-bold"> LEADS COUNT <span className='text-zinc-800'>{company.leads.length}</span></p> : <></>}
+
           </div>
 
           <div className="flex justify-end gap-1 absolute w-full top-[-10px] px-5">
@@ -127,11 +127,15 @@ const Companies: React.FC<PropsObject> = () => {
             {company?.statuses?.length ? company.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.colour} />) : <></>}
           </div>
 
+          <div className="absolute bottom-[-5px] flex justify-center w-full text-[10px] ">
+            <span className="text-zinc-500 bg-zinc-100 px-2 rounded-full">{moment(company.createdAt).format('ddd D MMM Y')} {company.leads.length ? ` | Leads Count ${company.leads.length}` : ""}</span>
+          </div>
+
           <p className="text-xs py-4 col-span-2 text-zinc-600">{company.notes && company.notes.substr(0, 200)}</p>
 
           <div className="flex justify-end items-center gap-3 col-span-2  ">
             {company.url && <a href={company.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>}
-            <Action className="p-2" height={40} width={36} icon={EditIcon} onClick={() => {
+            <Action className="p-[10px]" height={40} width={36} icon={EditIcon} onClick={() => {
               setModalHeading('update company')
               setCompanyForm(company);
               setCompanyModal(true);

@@ -132,8 +132,8 @@ const Leads: React.FC<PropsObject> = () => {
 
 
           <div className="flex flex-col gap-1 col-span-3 overflow-clip">
-            <div className="text-xs text-zinc-700 font-bold">{lead?.designation} {lead?.company && <span> at {lead.company.name}</span>}   </div>
-            <div className="text-xs text-lime-500">{lead?.address}</div>
+            <div className="text-xs text-zinc-700 font-bold">{lead?.designation}  {lead?.company && <span className='text-lime-500'> at {lead.company.name}</span>}   </div>
+            <div className="text-xs text-zinc-400 font-bold">{lead?.address}</div>
           </div>
 
           <div className="flex justify-end gap-1 absolute w-full top-[-10px] px-5">
@@ -141,12 +141,16 @@ const Leads: React.FC<PropsObject> = () => {
             {lead?.statuses?.length ? lead.statuses.map((status: any, index: number) => <Tag key={index} label={status.value} className={status.colour} />) : <></>}
           </div>
 
+          <div className="absolute bottom-[-5px] flex justify-center w-full text-[10px] ">
+            <span className="text-zinc-500 bg-zinc-100 px-2 rounded-full">{moment(lead.createdAt).format('ddd D MMM Y')}</span>
+          </div>
+
           <p className="text-xs py-4 col-span-2 text-zinc-600">{lead.notes && lead.notes.substr(0, 200)}</p>
 
           <div className="flex justify-end items-center gap-2 col-span-2 ">
             {lead.url && <a href={lead.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>}
-            <Action className="p-2" width={36} icon={CopyIcon} onClick={() => { cloneLead({ ...lead, id: null }) }} />
-            <Action className="p-2" width={36} icon={EditIcon} onClick={() => {
+            <Action className="p-[10px]" width={36} icon={CopyIcon} onClick={() => { cloneLead({ ...lead, id: null }) }} />
+            <Action className="p-[10px]" width={36} icon={EditIcon} onClick={() => {
               setModalHeading('update lead')
               setLeadForm(lead);
               setLeadModal(true);
