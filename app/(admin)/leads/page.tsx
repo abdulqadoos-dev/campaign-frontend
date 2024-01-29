@@ -180,7 +180,7 @@ const Leads: React.FC<PropsObject> = () => {
               setLeadForm(lead);
               setComposeEmailModal({ ...composeEmailModal, heading: "compose email", isMount: true });
             }} />
-            <Action className="p-[10px]" width={36} icon={CopyIcon} onClick={() => { cloneLead({ ...lead, id: null }) }} />
+            {/* <Action className="p-[10px]" width={36} icon={CopyIcon} onClick={() => { cloneLead({ ...lead, id: null }) }} /> */}
             <Action className="p-[10px]" width={36} icon={EditIcon} onClick={() => {
               setLeadForm(lead);
               setLeadModal({ ...leadModal, heading: "Update Lead", isMount: true });

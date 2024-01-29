@@ -163,8 +163,9 @@ const Form: React.FC<Props> = ({ data, functions }) => {
           onChange={(e: any) => setLeadForm({ ...leadForm, notes: e.target.value })}
         />
 
-        <div className="grid justify-items-stretch">
-          <Button lable="save" className="w-32 my-2 justify-self-end" active="true" />
+        <div className="flex justify-between">
+          {/* <Button lable="delete" className="w-32 my-2" active="true" /> */}
+          <Button lable="save" className="w-32 my-2" active="true" />
         </div>
 
       </form>
