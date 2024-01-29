@@ -175,7 +175,7 @@ const Leads: React.FC<PropsObject> = () => {
           <p className="text-xs py-4 col-span-2 text-zinc-600">{lead.notes && lead.notes.substr(0, 200)}</p>
 
           <div className="flex justify-end items-center gap-1 col-span-2 ">
-            {lead.url && <a href={lead.url} target='_blank'>  <Action className="p-[10px]" width={36} icon={RightIcon} onClick={() => { cloneLead({ ...lead, id: null }) }} /> </a>}
+            {lead.url && <a href={lead.url} target='_blank'>  <Action className="p-[10px]" width={36} icon={RightIcon}/> </a>}
             <Action className="p-[10px]" width={36} icon={EamilIcon} onClick={() => {
               setLeadForm(lead);
               setComposeEmailModal({ ...composeEmailModal, heading: "compose email", isMount: true });
