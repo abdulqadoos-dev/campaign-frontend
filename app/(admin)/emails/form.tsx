@@ -64,7 +64,7 @@ const Form: React.FC<Props> = ({ heading, emailForm, setEmailForm, closeModal, r
           onChange={(e: any) => setEmailForm({ ...emailForm, subject: e.target.value })}
         />
 
-        <Textarea label='body' rows={20} value={emailForm?.body}
+        <Textarea label='body - entities: [name] [company] [position]' rows={20} value={emailForm?.body}
           onChange={(e: any) => setEmailForm({ ...emailForm, body: e.target.value })}
         />
 
