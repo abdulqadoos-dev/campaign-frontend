@@ -61,7 +61,7 @@ const ComposeEmail: React.FC<Props> = ({ data, functions, }) => {
           onChange={(e: any) => setComposeEmailForm({ ...composeEmailForm, subject: e.target.value })}
         />
 
-        <Textarea label='body' value={composeEmailForm?.body || ""}
+        <Textarea label='body' rows={20} value={composeEmailForm?.body || ""}
           onChange={(e: any) => setComposeEmailForm({ ...composeEmailForm, body: e.target.value })}
         />
 
