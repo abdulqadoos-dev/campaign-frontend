@@ -1,7 +1,9 @@
-
+'use client'
 import Button from "@ui/button"
 
-import { login } from "./actions";
+import { login , loginWithGoogle} from "./actions";
+
+
 
 const Login = () => {
 // TODO:login for redirect to dashbaord if token exist
@@ -16,7 +18,11 @@ const Login = () => {
         </div>
 
         <div className="flex gap-1 justify-between my-5">
-          <button className="rounded-full bg-zinc-100 text-zinc-800 hover:bg-lime-500 hover:text-white text-xs py-3 px-5 w-full">Sign in with Google</button>
+          <button 
+          className="rounded-full bg-zinc-100 text-zinc-800 hover:bg-lime-500 hover:text-white text-xs py-3 px-5 w-full"
+          onClick={() => loginWithGoogle()}
+          >
+            Sign in with Google</button>
           <button className="rounded-full bg-zinc-100 text-zinc-800 hover:bg-lime-500 hover:text-white text-xs py-3 px-5 w-full">Sign in with LinkedIn</button>
         </div>
 
