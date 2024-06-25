@@ -89,10 +89,6 @@ const Leads: React.FC<PropsObject> = () => {
   }, [filters])
 
 
-
-
-
-
   const cloneLead = async (lead: any) => {
     const response = await saveLead(lead);
     if (response?.status === 201 || response?.status === 200) {
@@ -157,7 +153,6 @@ const Leads: React.FC<PropsObject> = () => {
             </div>
           </div>
 
-
           <div className="flex flex-col gap-1 col-span-3 overflow-clip">
             <div className="text-xs text-zinc-700 font-bold">{lead?.designation}  {lead?.company && <span className='text-lime-500'> at {lead.company.name}</span>}   </div>
             <div className="text-xs text-zinc-400 font-bold">{lead?.address}</div>
@@ -175,7 +170,7 @@ const Leads: React.FC<PropsObject> = () => {
           <p className="text-xs py-4 col-span-2 text-zinc-600">{lead.notes && lead.notes.substr(0, 200)}</p>
 
           <div className="flex justify-end items-center gap-1 col-span-2 ">
-            {lead.url && <a href={lead.url} target='_blank'>  <Action className="p-[10px]" width={36} icon={RightIcon}/> </a>}
+            {lead.url && <a href={lead.url} target='_blank'>  <Action className="p-[10px]" width={36} icon={RightIcon} /> </a>}
             <Action className="p-[10px]" width={36} icon={EamilIcon} onClick={() => {
               setLeadForm(lead);
               setComposeEmailModal({ ...composeEmailModal, heading: "compose email", isMount: true });

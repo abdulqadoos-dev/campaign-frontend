@@ -12,6 +12,7 @@ import NoRecord from '@ui/noRecord';
 import Filters from '@ui/filters';
 import Alert from '@ui/alert';
 
+import EamilIcon from "@icons/email.svg";
 import AddIcon from "@icons/add.svg";
 import EditIcon from "@icons/edit.svg";
 import RightIcon from "@icons/right.svg";
@@ -24,6 +25,7 @@ import { searchCompanies } from '@/app/(admin)/companies/actions';
 
 import { defaultFilters } from '@/app/constants';
 import { getStatuses } from '../statuses/actions';
+import ComposeEmail from '@/app/ui/composeEmail';
 
 import moment from 'moment';
 
@@ -31,12 +33,18 @@ interface PropsObject {
 
 }
 
+const initialAlert: any = { message: "", isMount: false }
+const initialComposeEmailModal: any = { heading: "", isMount: false }
+
 const Companies: React.FC<PropsObject> = () => {
 
   const [response, setReponse] = useState()
+  const [alert, setAlert] = useState(initialAlert)
   const [companyForm, setCompanyForm] = useState({})
   const [companyModal, setCompanyModal] = useState(false);
   const [modalHeading, setModalHeading] = useState('');
+  const [composeEmailModal, setComposeEmailModal] = useState(initialComposeEmailModal);
+
 
   const [companies, setCompanies] = useState([]);
   const [companiesCount, setCompaniesCount] = useState(0);
@@ -89,6 +97,20 @@ const Companies: React.FC<PropsObject> = () => {
 
       {response && <Alert response={response} setResponse={(value: any) => setReponse(value)} />}
 
+
+      {composeEmailModal.isMount && <ComposeEmail
+        data={{
+          alert,
+          companyForm,
+          composeEmailModal,
+        }}
+        functions={{
+          save: () => console.log('save'),
+          setAlert: (newAlert: any) => setAlert(newAlert),
+          setComposeEmailModal: (newComposeEmailModal: any) => setComposeEmailModal(newComposeEmailModal)
+        }}
+      />}
+
       <Header>
         <Button lable="New Company" icon={AddIcon} onClick={() => {
           setModalHeading('create company')
@@ -116,7 +138,6 @@ const Companies: React.FC<PropsObject> = () => {
           <div className="flex flex-col gap-1 col-span-2 overflow-clip ">
             <div className="text-xs text-zinc-800 font-bold">{company?.type} <br />  {company.address && <span className='text-zinc-400'>{company.address}</span>}  </div>
             <div className="text-xs text-lime-500">{company?.employees}</div>
-
           </div>
 
           <div className="flex justify-end gap-1 absolute w-full top-[-10px] px-5">
@@ -135,6 +156,10 @@ const Companies: React.FC<PropsObject> = () => {
 
           <div className="flex justify-end items-center gap-3 col-span-2  ">
             {company.url && <a href={company.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>}
+            <Action className="p-[10px]" width={36} icon={EamilIcon} onClick={() => {
+              setCompanyForm(company);
+              setComposeEmailModal({ ...composeEmailModal, heading: "compose email", isMount: true });
+            }} />
             <Action className="p-[10px]" height={40} width={36} icon={EditIcon} onClick={() => {
               setModalHeading('update company')
               setCompanyForm(company);
