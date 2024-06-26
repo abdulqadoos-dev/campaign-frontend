@@ -158,7 +158,7 @@ const Companies: React.FC<PropsObject> = () => {
             {company.url && <a href={company.url} target='_blank'> <Button lable="visit" className="hover:bg-zinc-200" icon={RightIcon} /> </a>}
             <Action className="p-[10px]" width={36} icon={EamilIcon} onClick={() => {
               setCompanyForm(company);
-              setComposeEmailModal({ ...composeEmailModal, heading: "compose email", isMount: true });
+              setComposeEmailModal({ ...composeEmailModal, heading: "Emails", isMount: true });
             }} />
             <Action className="p-[10px]" height={40} width={36} icon={EditIcon} onClick={() => {
               setModalHeading('update company')
